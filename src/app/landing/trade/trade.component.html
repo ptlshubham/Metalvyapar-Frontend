@@ -1,0 +1,587 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100" [ngClass]="{'main-bg-card-active ':openNewRequest==false}"
+                (click)="newTradeRequest()">
+                <!-- card body -->
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Getting Started</span>
+                            <h4 class="mb-3">
+                                <!-- <span [CountTo]="500" class="counter-value" [from]="0" [duration]="1"></span> -->
+                                <span>New Request</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="text-nowrap">
+                        <!-- <span class="badge bg-soft-success text-success">+₹20.9k</span>
+                        <span class="ms-1 text-muted font-size-13">Since last week</span> -->
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+
+        <div class="col-xl-3 col-md-6">
+            <!-- card -->
+            <div class="card card-h-100" [ngClass]="{'main-bg-card-active ':openActive==true}"
+                (click)="openActiveRequest()">
+                <!-- card body -->
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <span class="text-muted mb-3 lh-1 d-block text-truncate">Active Requests</span>
+                            <h4 class="mb-3" *ngIf="buyerTrade.length >00">
+                                <span [CountTo]="buyerTrade.length" class="counter-value" [from]="0"
+                                    [duration]="1"></span>
+                            </h4>
+                            <h4 class="mb-3" *ngIf="buyerTrade.length ==0">
+                                <span class="counter-value">0</span>
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="text-nowrap">
+                        <!-- <span class="badge bg-soft-danger text-danger">15 Trades</span>
+                        <span class="ms-1 text-muted font-size-13">Since last week</span> -->
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col-->
+
+    </div>
+    <div class="row" *ngIf="openNewRequest==false">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Enter Trade Details</h5>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <form [formGroup]="validationForm" (ngSubmit)="onSubmit()">
+                            <input type="hidden" />
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Material Quality</label>
+                                        <select class="form-control form-select" required
+                                            formControlName="selectMaterial" *ngIf="qualityList.length>0"
+                                            [ngClass]="{'is-invalid': f.selectMaterial.touched && f.selectMaterial.errors}"
+                                            [(ngModel)]="tradeModel.material_quality">
+                                            <option value="" hidden>Select Material Quality</option>
+                                            <option *ngFor="let c of qualityList" value="{{c}}">
+                                                {{c}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="f.selectMaterial.touched && f.selectMaterial.errors"
+                                            class="invalid-feedback">
+                                            <span *ngIf="f.selectMaterial.errors.required">This field is
+                                                required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Quantity (MT)</label>
+                                        <input type="number" formControlName="quantity"
+                                            [(ngModel)]="tradeModel.quantity"
+                                            [ngClass]="{ 'is-invalid': f.quantity.touched && f.quantity.errors }"
+                                            class="form-control" id="quantity" placeholder="Enter Quantity (MT)">
+                                        <div *ngIf="f.quantity.touched && f.quantity.errors" class="invalid-feedback">
+                                            <div *ngIf="f.quantity.errors.required">Quantity is required</div>
+                                            <div *ngIf="f.quantity.errors.min">Only numbers allowed & Do not
+                                                enter
+                                                characters.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Rate (₹/MT)<a placement="bottom"
+                                                ngbTooltip="Rates are exclusive of taxes. 18% GST will be applicable on the rates.">*</a></label>
+                                        <input type="number" formControlName="rate" [(ngModel)]="tradeModel.buyerRate"
+                                            [ngClass]="{ 'is-invalid': f.rate.touched && f.rate.errors }"
+                                            class="form-control" id="rate" placeholder="Enter Rate (₹/MT)">
+                                        <div *ngIf="f.rate.touched && f.rate.errors" class="invalid-feedback">
+                                            <div *ngIf="f.rate.errors.required">Rate is required</div>
+                                            <div *ngIf="f.rate.errors.min">Only numbers allowed & Do not enter
+                                                characters.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">Payment Terms </label>
+                                        <select required class="form-control form-select"
+                                            formControlName="selectPayment"
+                                            [ngClass]="{'is-invalid': f.selectPayment.touched && f.selectPayment.errors}"
+                                            [(ngModel)]="tradeModel.payment_terms">
+                                            <option value="" hidden>Select Payment Terms</option>
+                                            <option value="Advance Payment">Advance Payment</option>
+                                            <option value="After Delivery">After Delivery</option>
+                                        </select>
+                                        <div *ngIf="f.selectPayment.touched && f.selectPayment.errors"
+                                            class="invalid-feedback">
+                                            <span *ngIf="f.selectPayment.errors.required">This field is
+                                                required.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6" *ngIf="tradeModel.payment_terms=='After Delivery'">
+                                    <div class="form-group mb-3">
+                                        <label>Payment Terms(Days)<a placement="bottom"
+                                                ngbTooltip=" Payment days will be counted after buyer has received the material.">**</a></label>
+                                        <input type="number" formControlName="terms" [(ngModel)]="payment_days"
+                                            [ngClass]="{ 'is-invalid': f.terms.touched && f.terms.errors }"
+                                            class="form-control" id="terms" placeholder="Enter Payment Terms (days)">
+                                        <div *ngIf="f.terms.touched && f.terms.errors" class="invalid-feedback">
+                                            <div *ngIf="f.terms.errors.required">Payment Terms is required</div>
+                                            <div *ngIf="f.terms.errors.min">Only numbers allowed & Do not enter
+                                                characters.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Validity <i class="fa fa-info-circle" style="color: blue;"
+                                                placement="top"
+                                                ngbTooltip="Trade request will be Valid till selected date."></i></label>
+                                        <input class="form-control" formControlName="validity" type="date" id="validity"
+                                            [(ngModel)]="tradeModel.payment_validity" value="{{dt | date:'yyyy-MM-dd'}}"
+                                            [ngClass]="{ 'is-invalid': f.validity.touched && f.validity.errors }"
+                                            placeholder="Select Validity" [min]="today | date:'yyyy-MM-dd'"
+                                            [ngModel]="dt | date:'yyyy-MM-dd'" (ngModelChange)="dt = $event">
+                                        <div *ngIf="f.validity.touched && f.validity.errors" class="invalid-feedback">
+                                            <div *ngIf="f.validity.errors.required">Validity is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end row -->
+
+                            <div class="form-group mt-3 mb-3 form-check">
+                                <input id="term-check01" type="checkbox" class="form-check-input" name="future"
+                                    [(ngModel)]="tnc" required [ngModelOptions]="{standalone: true}"
+                                    data-pristine-required-message="You must accept the terms and conditions" />
+                                <label class="form-check-label" for="term-check01">I accept the <a
+                                        href="https://metalvyapar.com/terms.html"
+                                        style="text-decoration: underline !important;" target="_blank">terms and
+                                        conditions</a>.</label><br />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary"
+                                    [disabled]="validationForm.invalid || !tnc">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="isBuyerOpen">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Active Requests</h5>
+                        <div *ngIf="isSalerRes">
+                            <button type="button" class="btn btn-danger waves-effect waves-light"
+                                (click)="backToActiveTrade()"><i class="bx bx-left-arrow-alt"></i>Back</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="isSalerRes">
+                        <div class="col-12">
+                            <h5 class="card-title">Response For OrderId: {{OrderDetails[0].OrderId}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="!isSalerRes">
+                    <div class="table-responsive">
+                        <table class="table mb-0" #table1>
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="text-left">#</th>
+                                    <th class="text-center">Order ID</th>
+                                    <th class="text-center">Quality</th>
+                                    <th class="text-center">No of response <i class="fa fa-info-circle"
+                                            style="color: blue;" placement="bottom"
+                                            ngbTooltip="Total Number of sellers gives the proposal."></i></th>
+                                    <th class="text-center">Remaining Quantity <i class="fa fa-info-circle"
+                                            style="color: blue;" placement="bottom"
+                                            ngbTooltip="Total remaning quantity from Required Quantity."></i>
+                                    </th>
+                                    <th class="text-center">Validity <i class="fa fa-info-circle" style="color: blue;"
+                                            placement="bottom" ngbTooltip="Trade Valid till mentioned date."></i></th>
+                                    <th class="text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let s of buyerTrade;let i=index">
+                                    <th scope="row" class="text-left">{{i+1}}</th>
+                                    <td class="text-center">{{s.OrderId}}</td>
+                                    <td class="text-center">{{s.BuyerQuality}}</td>
+                                    <td class="text-center">{{s.TotalResponse}}</td>
+                                    <td class="text-center">{{s.RemainingQuantity}}</td>
+                                    <td class="text-center">{{s.PaymentValidity | date:'dd/MM/yyyy'}}</td>
+
+                                    <td class="text-end">
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="View Trade Details" (click)="OpenOrderDetails(s)"><i
+                                                    class="fa fa-eye font-size-16 align-middle me-2"></i>Details</button>
+                                            <button type="button" class="btn btn-danger waves-effect waves-light"
+                                                *ngIf="s.isDelete" data-bs-toggle="tooltip" data-bs-placement="top"
+                                                title="View Trade Details" (click)="DeleteTrade(s)"><i
+                                                    class="fa fa-trash font-size-16 align-middle"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-body" *ngIf="isSalerRes">
+                    <div class="table-responsive">
+                        <table class="table mb-0">
+                            <thead class="table-light">
+                                <th class="text-center"></th>
+                                <tr>
+                                    <th class="text-left">#</th>
+                                    <th class="text-center">Trade ID</th>
+                                    <th class="text-center">Quality</th>
+                                    <th class="text-center">Seller Location</th>
+                                    <th class="text-center">Seller Quantity</th>
+                                    <th class="text-center">Status</th>
+                                    <!-- <th class="text-center">REJECTION MESSAGE</th> -->
+                                    <th class="text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let s of OrderDetails;let i=index">
+                                    <th scope="row" class="text-left">{{i+1}}</th>
+                                    <td class="text-center">{{s.SubOrderId}}</td>
+                                    <td class="text-center">{{reqQuality}}</td>
+                                    <td class="text-center" *ngIf="s.TradeStatus=='Ideal'"> <b>-</b></td>
+                                    <td class="text-center" *ngIf="s.TradeStatus!='Ideal'">{{s.city}},
+                                        {{s.state}}</td>
+                                    <td class="text-center">{{s.SellerQuantity}}</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-info" *ngIf="s.TradeStatus=='Ideal'">Not Reviewed</span>
+                                        <span class="badge bg-success" *ngIf="s.TradeStatus=='Accepted'">Accepted</span>
+                                        <span class="badge bg-danger" *ngIf="s.TradeStatus=='Rejected'">Rejected</span>
+                                        <div *ngIf="s.TradeStatus=='Pending'">
+                                            <button type="button" class="btn btn-primary waves-effect waves-light"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="View & Accept"
+                                                (click)="viewAcceptOrReject(s)"><i
+                                                    class="bx bx-check-double font-size-16 align-middle me-2"></i>Review</button>
+                                        </div>
+                                    </td>
+                                    <!-- <td class="text-center">{{s.RejectedMessage}}</td> -->
+                                    <td class="text-end">
+                                        <button type="button" class="btn btn-primary waves-effect waves-light"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="View Trade Details"
+                                            (click)="viewTradeDetailsByTrade(s)"><i
+                                                class="fa fa-eye font-size-16 align-middle me-2"></i>Details</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer" *ngIf="buyerTrade.length>0">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row" *ngIf="isAccept">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Accept Or Reject Trade</h5>
+                        <button type="button" class="btn btn-danger waves-effect waves-light"
+                            (click)="backToSummary()"><i class="bx bx-left-arrow-alt"></i>Back</button>
+                    </div>
+                </div>
+                <!-- end card header -->
+                <div class="card-body">
+                    <div>
+                        <form>
+                            <input type="hidden" />
+                            <div class="row">
+
+                                <div class="col-xl-4 col-md-6">
+                                    <label>Quality</label>
+                                    <input type="text" class="form-control" id="quality" placeholder="Enter quality"
+                                        disabled value="{{buyerModel.BuyerQuality}}">
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Required Quantity (MT)</label>
+                                        <input type="number" disabled class="form-control" id="quantity"
+                                            placeholder="Enter Quantity (MT)" value="{{buyerModel.BuyerQuantity}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Rate (₹/MT)<a placement="bottom"
+                                                ngbTooltip="Rates are exclusive of taxes. 18% GST will be applicable on the rates.">*</a></label>
+                                        <input type="number" disabled class="form-control" id="rate"
+                                            placeholder="Enter Rate (₹/MT)" value="{{buyerModel.BuyerRate}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Payment Terms </label>
+                                        <input type="text" disabled class="form-control" id="terms"
+                                            placeholder="Enter Payment Terms" value="{{buyerModel.PaymentTerms}}">
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6" *ngIf="buyerModel.PaymentTerms =='After Delivery'">
+                                    <div class="form-group mb-3">
+                                        <label>Payment Terms (Days)<a placement="bottom"
+                                                ngbTooltip=" Payment days will be counted after buyer has received the material.">**</a></label>
+                                        <input type="text" disabled class="form-control" id="payment_days"
+                                            placeholder="Enter Payment Terms (days)" value="{{buyerModel.PaymentDays}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Delivery Terms (Days)</label>
+                                        <input type="number" disabled class="form-control" id="delivery_days"
+                                            placeholder="Enter Delivery Terms (days)"
+                                            value="{{buyerModel.DeliveryTerms}}">
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Seller Location</label>
+                                        <input type="text" disabled class="form-control" id="location"
+                                            placeholder="Enter Buyer" value="{{buyerModel.city}},{{buyerModel.state}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Quantity From Seller (MT)</label>
+                                        <input type="number" disabled class="form-control" id="sellerQuantity"
+                                            placeholder="Enter Quantity (MT)" value="{{buyerModel.SellerQuantity}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3" style="height: 200px;width: 200px;">
+                                        <img class="img-thumbnail" style="height: 200px;width: 200px;" alt="200x200"
+                                            style="height: 200px; width: 200px;"
+                                            src="https://api.metalvyapar.com{{buyerModel.MaterialImage}}"
+                                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"
+                                            (click)="centerModal(centerDataModal,buyerModel.MaterialImage)"
+                                            data-holder-rendered="true">
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-4 col-md-6" *ngFor="let m of materialsImagesList">
+                                    <div class="form-group mb-3" style="height: 200px;width: 200px;">
+                                        <img class="img-thumbnail" style="height: 200px;width: 200px;" alt="200x200"
+                                            style="height: 200px; width: 200px;"
+                                            src="https://api.metalvyapar.com{{m.image}}" data-bs-toggle="modal"
+                                            data-bs-target=".bs-example-modal-center"
+                                            (click)="centerModal(centerDataModal,m.image)" data-holder-rendered="true">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end row -->
+
+                            <div class="form-group mt-3 mb-3 form-check">
+                                <input id="term-check01" type="checkbox" class="form-check-input" name="future" required
+                                    [(ngModel)]="tnc1" [ngModelOptions]="{standalone: true}"
+                                    data-pristine-required-message="You must accept the terms and conditions" />
+                                <label class="form-check-label" for="term-check01">I accept the <a
+                                        href="https://metalvyapar.com/terms.html"
+                                        style="text-decoration: underline !important;" target="_blank">terms and
+                                        conditions</a>.</label><br />
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-1 offset-10">
+                                        <button type="submit" class="btn btn-success" (click)="acceptOrderAndPay()"
+                                            [disabled]="!tnc1">Accept</button>
+                                    </div>
+                                    <div class="col-1">
+                                        <button type="submit" class="btn btn-danger" (click)="recjectTrade()"
+                                            [disabled]="!tnc1">Reject</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="openPayment">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Payment For Trade</h5>
+                        <button type="button" class="btn btn-danger waves-effect waves-light"
+                            (click)="backToViewReject()"><i class="bx bx-left-arrow-alt"></i>Back</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <app-customer-payment [buyer]="buyerModel"></app-customer-payment>
+
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="isViewDetails">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">Trade Details</h5>
+                        <button type="button" class="btn btn-danger waves-effect waves-light"
+                            (click)="backToSummary()"><i class="bx bx-left-arrow-alt"></i>Back</button>
+                    </div>
+                </div>
+                <!-- end card header -->
+
+                <div class="card-body">
+                    <div>
+                        <form>
+                            <input type="hidden" />
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6">
+                                    <label>Quality</label>
+                                    <input type="text" class="form-control" id="quality" placeholder="Enter quality"
+                                        disabled value="{{buyerModel.BuyerQuality}}">
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Required Quantity (MT)</label>
+                                        <input type="number" disabled class="form-control" id="quantity"
+                                            placeholder="Enter Quantity (MT)" value="{{buyerModel.BuyerQuantity}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Rate (₹/MT)<a placement="bottom"
+                                                ngbTooltip="Rates are exclusive of taxes. 18% GST will be applicable on the rates.">*</a></label>
+                                        <input type="number" disabled class="form-control" id="rate"
+                                            placeholder="Enter Rate (₹/MT)" value="{{buyerModel.BuyerRate}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Payment Terms </label>
+                                        <input type="text" disabled class="form-control" id="terms"
+                                            placeholder="Enter Payment Terms" value="{{buyerModel.PaymentTerms}}">
+
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6" *ngIf="buyerModel.PaymentTerms =='After Delivery'">
+                                    <div class="form-group mb-3">
+                                        <label>Payment Terms (Days)<a placement="bottom"
+                                                ngbTooltip=" Payment days will be counted after buyer has received the material.">**</a></label>
+                                        <input type="number" disabled class="form-control" id="payment_days"
+                                            placeholder="Enter Payment Terms (Days)" value="{{buyerModel.PaymentDays}}">
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label>Validity</label>
+                                        <input type="text" disabled class="form-control" id="paymvalidity"
+                                            placeholder="Validity (days)"
+                                            value="{{buyerModel.PaymentValidity | date:'yyyy-MM-dd'}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #MaryDataModal role="document" let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Give a reason for Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.close('Close click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+                <label for="message-text" class="col-form-label">Reason:</label>
+                <textarea class="form-control" id="message-text" [(ngModel)]="cancelMessage"
+                    [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            (click)="modal.close('Close click')">Close</button>
+        <button type="button" [disabled]="cancelMessage ==null || cancelMessage ==''"
+            (click)="modal.close('Close click');SendCancelMsg()" class="btn btn-primary">Submit</button>
+    </div>
+</ng-template>
+
+<ng-template #RejectDataModal role="document" let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Give a reason for rejection.</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="modal.close('Close click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="mb-3">
+                <label for="message-text" class="col-form-label">Enter Reason:</label>
+                <textarea class="form-control" id="message-text" [(ngModel)]="cancelMessage"
+                    [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            (click)="modal.close('Close click')">Close</button>
+        <button type="button" [disabled]="cancelMessage ==null || cancelMessage==''"
+            (click)="modal.close('Close click');saveRejectedTradeMsg()" class="btn btn-primary">Submit</button>
+    </div>
+</ng-template>
+
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Image Viewer</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <link rel="stylesheet" type="text/css"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="image-viewer-container" [class.fullscreen]="fullscreen">
+                        <div class="image-viewer">
+                            <ngx-image-viewer #imageViewer [src]="images" [(index)]="imageIndex"></ngx-image-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template><!-- /.modal -->

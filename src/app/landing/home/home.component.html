@@ -1,0 +1,629 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+            <h4 class="mb-sm-0 font-size-18">Dashboard</h4>
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <ng-container>
+                        <li class="breadcrumb-item">Dashboard
+                        </li>
+                        <li class="breadcrumb-item active">Dashboard
+                        </li>
+                    </ng-container>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div *ngIf="role=='Buyer'">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" (click)="openNewTrade()">
+                <!-- card -->
+                <div class="card card-h-100" [ngClass]="{'main-bg-card-active':openNewRequest==true}">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Trade
+                                    Request</span>
+                                <h4 class="mb-3">
+                                    <span [CountTo]="newTradingListBuyer.length" *ngIf="newTradingListBuyer.length >0"
+                                        class="counter-value" [from]="0" [duration]="1"></span>
+                                    <span *ngIf="newTradingListBuyer.length==0" class="counter-value">0</span>
+
+                                </h4>
+                            </div>
+
+                            <div class="col-4" style="text-align: center;">
+                                <!-- <i class="bx bx bx-transfer-alt c-icon"> </i> -->
+                                <img src="assets/images/icons/newtrade.png" alt="newtrade" class="rounded avatar-lg">
+                            </div>
+                        </div>
+                        <div class="text-nowrap">
+                            <!-- <span class="badge bg-soft-success text-success">+₹20.9k</span>
+                            <span class="ms-1 text-muted font-size-13">Since last week</span> -->
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" (click)="openTradeSummary()">
+                <!-- card -->
+                <div class="card card-h-100" [ngClass]="{'main-bg-card-active ':openTSummary==true}">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Trade Summary</span>
+                                <h4 class="mb-3">
+                                    <span [CountTo]="tradeSummaryCount.length" *ngIf="tradeSummaryCount.length >0"
+                                        class="counter-value" [from]="0" [duration]="1"></span>
+                                    <span *ngIf="tradeSummaryCount.length==0" class="counter-value">0</span>
+                                </h4>
+                            </div>
+                            <div class="col-4" style="text-align: center;">
+                                <!-- <i class="mdi mdi-view-list-outline c-icon"> </i> -->
+                                <img src="assets/images/icons/summary.png" alt="summary" class="rounded avatar-lg">
+
+                            </div>
+                        </div>
+                        <div class="text-nowrap">
+                            <!-- <span class="badge bg-soft-primary text-primary">{{weekTradeCountBuyer}} Trades</span>
+                            <span class="ms-1 text-muted font-size-13">Since last week</span> -->
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col-->
+
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" (click)="openPaymentSummary()">
+                <!-- card -->
+                <div class="card card-h-100" [ngClass]="{'main-bg-card-active ':openPaymentSumm==true}">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Payment Summary</span>
+                                <h4 class="mb-3">
+                                    <span [CountTo]="paymentSummary.length" *ngIf="paymentSummary.length >0"
+                                        class="counter-value" [from]="0" [duration]="1"></span>
+                                    <span *ngIf="paymentSummary.length==0" class="counter-value">0</span>
+                                </h4>
+                            </div>
+                            <div class="col-4" style="text-align: center;">
+                                <img src="assets/images/icons/payment.png" alt="payment" class="rounded avatar-lg">
+                            </div>
+                        </div>
+                        <div class="text-nowrap">
+                            <!-- <span class="badge bg-soft-success text-success">+ ₹2.8k</span>
+                            <span class="ms-1 text-muted font-size-13">Since last week</span> -->
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" (click)="openHelpSupport()">
+                <!-- card -->
+                <div class="card card-h-100">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Help & Support</span>
+                                <h4 class="mb-3">
+                                </h4>
+                            </div>
+                            <div class="col-4" style="text-align: center;">
+                                <img src="assets/images/icons/contactus.png" alt="contactus" class="rounded avatar-lg">
+                            </div>
+                        </div>
+                        <div class="text-nowrap">
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+        </div>
+    </div>
+    <div *ngIf="role=='Seller'">
+        <div class="row">
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" (click)="openNewTrade()">
+                <!-- card -->
+                <div class="card card-h-100" [ngClass]="{'main-bg-card-active ':openNewRequest==true}">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Available Requests</span>
+                                <h4 class="mb-3">
+                                    <span [CountTo]="newTradingListSeller.length" 
+                                        class="counter-value" [from]="0" [duration]="1"></span>
+                                    <span *ngIf="newTradingListSeller.length==0" class="counter-value">0</span>
+                                </h4>
+                            </div>
+
+                            <div class="col-4" style="text-align: center;">
+                                <img src="assets/images/icons/newtrade.png" alt="newtrade" class="rounded avatar-lg">
+                            </div>
+                        </div>
+                        <div class="text-nowrap">
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" (click)="openTradeSummary()">
+                <!-- card -->
+                <div class="card card-h-100" [ngClass]="{'main-bg-card-active ':openTSummary==true}">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Trade Summary</span>
+                                <h4 class="mb-3">
+                                    <span [CountTo]="tradeSummaryLength.length" class="counter-value" [from]="0"
+                                        [duration]="1"></span>
+                                    <span *ngIf="tradeSummaryLength.length==0" class="counter-value">0</span>
+                                </h4>
+                            </div>
+                            <div class="col-4" style="text-align: center;">
+                                <img src="assets/images/icons/summary.png" alt="summary" class="rounded avatar-lg">
+                            </div>
+                        </div>
+                        <div class="text-nowrap">
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col-->
+
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" (click)="openPaymentSummary()">
+                <!-- card -->
+                <div class="card card-h-100" [ngClass]="{'main-bg-card-active ':openPaymentSumm==true}">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Payment Summary</span>
+
+                                <h4 class="mb-3">
+                                    <!-- ₹<span [CountTo]="4.32" class="counter-value" [from]="0" [duration]="1"></span>M -->
+                                    <!-- <span *ngIf="tradeSummaryLength.length==0" class="counter-value">0</span> -->
+
+                                </h4>
+                            </div>
+                            <div class="col-4" style="text-align: center;">
+                                <img src="assets/images/icons/payment.png" alt="payment" class="rounded avatar-lg">
+                            </div>
+                        </div>
+                        <div class="text-nowrap">
+
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12" (click)="openHelpSupport()">
+                <!-- card -->
+                <div class="card card-h-100">
+                    <!-- card body -->
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8">
+                                <span class="text-muted mb-3 lh-1 d-block text-truncate">Help & Support</span>
+                                <h4 class="mb-3">
+                                    <!-- <span [CountTo]="12.37" class="counter-value" [from]="0" [duration]="1"></span>% -->
+                                </h4>
+                            </div>
+                            <div class="col-4" style="text-align: center;">
+                                <img src="assets/images/icons/contactus.png" alt="contactus" class="rounded avatar-lg">
+                            </div>
+                        </div>
+                        <div class="text-nowrap">
+                            <!-- <span class="badge bg-soft-success text-success">+2.95%</span>
+                            <span class="ms-1 text-muted font-size-13">Since last week</span> -->
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div><!-- end col -->
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="role=='Buyer' && !openPaymentSumm && !openTSummary">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Upcoming Deliveries in next 3 Days</h4>
+                <!-- <p class="card-title-desc">Here is example of datatable.
+                </p> -->
+            </div>
+            <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="tickets-table_length"><label
+                                class="d-inline-flex align-items-center">Show
+                                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                                    [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                                    <option [ngValue]="10">10</option>
+                                    <option [ngValue]="25">25</option>
+                                    <option [ngValue]="50">50</option>
+                                    <option [ngValue]="100">100</option>
+                                </select> entries</label></div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                class="d-inline-flex align-items-center">Search:
+                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap w-100 datatables">
+                    <thead>
+                        <tr>
+                            <th sortable="srno" (sort)="onSort($event)">#</th>
+                            <th sortable="Date" (sort)="onSort($event)">Trade Date</th>
+                            <th sortable="TradeId" (sort)="onSort($event)">Trade ID</th>
+                            <th sortable="BuyerName" (sort)="onSort($event)">Buyer Name</th>
+                            <th sortable="SellerName" (sort)="onSort($event)">Seller Name</th>
+                            <th sortable="DeliveryDue" (sort)="onSort($event)">Delivery Due Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                        <tr *ngIf="table.BuyerName !='string'">
+                            <td>
+                                <ngb-highlight [result]="table.srno | number"
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Date" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.TradeId" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BuyerName " [term]="service.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.SellerName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.DeliveryDue "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td> <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View Details"
+                                    (click)="openUpcomingDeliveriesForBuyer(table.TradeId)"><i
+                                        class="fas fa-eye font-size-16 align-middle"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{service.startIndex}} to
+                            {{service.endIndex}} of {{service.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col-sm-12 col-md-5">
+                        <div class="text-md-right float-md-end pagination-rounded">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Upcoming Payments in Next 3 days</h4>
+                <!-- <p class="card-title-desc">Here is example of datatable.
+                </p> -->
+            </div>
+            <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="tickets-table_length"><label
+                                class="d-inline-flex align-items-center">Show
+                                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                                    [(ngModel)]="services.pageSize" class="form-control form-control-sm mx-2">
+                                    <option [ngValue]="10">10</option>
+                                    <option [ngValue]="25">25</option>
+                                    <option [ngValue]="50">50</option>
+                                    <option [ngValue]="100">100</option>
+                                </select> entries</label></div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                class="d-inline-flex align-items-center">Search:
+                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                    aria-controls="tickets-table" [(ngModel)]="services.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap datatables">
+                    <thead>
+                        <tr>
+                            <th sortablepay="srno" (sort)="onSortPay($event)">Sr No</th>
+                            <th sortablepay="TradeDate" (sort)="onSortPay($event)">Trade Date</th>
+                            <th sortablepay="TradeId" (sort)="onSortPay($event)">Trade ID</th>
+                            <th sortablepay="BuyerName" (sort)="onSortPay($event)">Buyer Name</th>
+                            <th sortablepay="SellerName" (sort)="onSortPay($event)">Seller Name</th>
+                            <th sortablepay="InvoiceAmount" (sort)="onSortPay($event)">Amount</th>
+                            <th sortablepay="PaymentDueDate" (sort)="onSortPay($event)">Payment Due Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let table of table$ | async;let i=index">
+                        <tr *ngIf="table.BuyerName !='string'">
+                            <td>
+                                <ngb-highlight [result]="table.srno | number"
+                                    [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.TradeDate" [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.TradeId" [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BuyerName " [term]="services.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.SellerName " [term]="services.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.InvoiceAmount | number"
+                                    [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PaymentDueDate "
+                                    [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td> <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View Upcoming Payments"
+                                    (click)="openUpcomingPaymentsForBuyer(table.TradeId)"><i
+                                        class="fas fa-eye font-size-16 align-middle"></i></button></td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{services.startIndex}} to
+                            {{services.endIndex}} of {{services.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col-sm-12 col-md-5">
+                        <div class="text-md-right float-md-end pagination-rounded">
+                            <ngb-pagination [collectionSize]="(totals$ | async)!" [(page)]="services.page"
+                                [pageSize]="services.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="role=='Seller' && !openPaymentSumm && !openTSummary">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Upcoming Dispatch in next 3 Days</h4>
+                <!-- <p class="card-title-desc">Here is example of datatable.
+                </p> -->
+            </div>
+            <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="tickets-table_length"><label
+                                class="d-inline-flex align-items-center">Show
+                                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                                    [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                                    <option [ngValue]="10">10</option>
+                                    <option [ngValue]="25">25</option>
+                                    <option [ngValue]="50">50</option>
+                                    <option [ngValue]="100">100</option>
+                                </select> entries</label></div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                class="d-inline-flex align-items-center">Search:
+                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap w-100 datatables">
+                    <thead>
+                        <tr>
+                            <th sortable="srno" (sort)="onSort($event)">#</th>
+                            <th sortable="Date" (sort)="onSort($event)">Trade Date</th>
+                            <th sortable="TradeId" (sort)="onSort($event)">Trade ID</th>
+                            <th sortable="BuyerName" (sort)="onSort($event)">Buyer Name</th>
+                            <th sortable="SellerName" (sort)="onSort($event)">Seller Name</th>
+                            <th sortable="DeliveryDue" (sort)="onSort($event)">Delivery Due Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                        <tr *ngIf="table.BuyerName !='string'">
+                            <td>
+                                <ngb-highlight [result]="table.srno | number"
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Date" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.TradeId" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BuyerName " [term]="service.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.SellerName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.DeliveryDue "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td> <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View Upcoming Dispatch"
+                                    (click)="viewUpcomingDispachForSeller(table.TradeId)"><i
+                                        class="fas fa-eye font-size-16 align-middle"></i></button></td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{service.startIndex}} to
+                            {{service.endIndex}} of {{service.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col-sm-12 col-md-5">
+                        <div class="text-md-right float-md-end pagination-rounded">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Upcoming Payments in Next 3 days</h4>
+                <!-- <p class="card-title-desc">Here is example of datatable.
+                </p> -->
+            </div>
+            <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="tickets-table_length"><label
+                                class="d-inline-flex align-items-center">Show
+                                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                                    [(ngModel)]="services.pageSize" class="form-control form-control-sm mx-2">
+                                    <option [ngValue]="10">10</option>
+                                    <option [ngValue]="25">25</option>
+                                    <option [ngValue]="50">50</option>
+                                    <option [ngValue]="100">100</option>
+                                </select> entries</label></div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                class="d-inline-flex align-items-center">Search:
+                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                    aria-controls="tickets-table" [(ngModel)]="services.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap datatables">
+                    <thead>
+                        <tr>
+                            <th sortablepay="srno" (sort)="onSortPay($event)">#</th>
+                            <th sortablepay="TradeDate" (sort)="onSortPay($event)">Trade Date</th>
+                            <th sortablepay="TradeId" (sort)="onSortPay($event)">Trade ID</th>
+                            <th sortablepay="BuyerName" (sort)="onSortPay($event)">Buyer Name</th>
+                            <th sortablepay="SellerName" (sort)="onSortPay($event)">Seller Name</th>
+                            <th sortablepay="InvoiceAmount" (sort)="onSortPay($event)">Amount</th>
+                            <th sortablepay="PaymentDueDate" (sort)="onSortPay($event)">Payment Due Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let table of table$ | async;let i=index">
+                        <tr>
+                            <td>
+                                <ngb-highlight [result]="table.srno | number"
+                                    [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.TradeDate" [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.TradeId" [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BuyerName " [term]="services.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.SellerName" [term]="services.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.InvoiceAmount | number"
+                                    [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PaymentDueDate"
+                                    [term]="services.searchTerm"></ngb-highlight>
+                            </td>
+                            <td> <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View Upcoming Payments"
+                                    (click)="viewUpcomingPaymentsForSeller(table.TradeId)"><i
+                                        class="fas fa-eye font-size-16 align-middle"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{services.startIndex}} to
+                            {{services.endIndex}} of {{services.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col-sm-12 col-md-5">
+                        <div class="text-md-right float-md-end pagination-rounded">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="services.page"
+                                [pageSize]="services.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

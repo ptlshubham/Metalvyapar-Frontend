@@ -1,0 +1,94 @@
+<div class="row" *ngIf="isTradeOpen">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Seller Trade Summary</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="text-left">#</th>
+                                <th class="text-center">Trade ID</th>
+                                <th class="text-center">Quality</th>
+                                <th class="text-center">Rate (₹/MT)<a placement="bottom"
+                                                ngbTooltip="Rates are exclusive of taxes. 18% GST will be applicable on the rates.">*</a></th>
+                                <th class="text-center">Buyer Name</th>
+                                <th class="text-center">Buyer Location</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let s of sellerTrade;let i=index">
+                                <td class="text-left" scope="row">{{i+1}}</td>
+                                <td class="text-center">{{s.SubOrderId}}</td>
+                                <td class="text-center">{{s.BuyerQuality }}</td>
+                                <td class="text-center">{{s.BuyerRate }}</td>
+                                <td class="text-center">{{s.CompanyName}}</td>
+                                <td class="text-center">{{s.location}}</td>
+                                <td class="text-center">
+                                    <span class="badge bg-success"
+                                        *ngIf="s.TradeStatus=='Accepted'">{{s.TradeStatus}}</span>
+                                    <span class="badge bg-info" *ngIf="s.TradeStatus=='IDEAL'">Not Reviewed</span>
+                                    <span class="badge bg-danger"
+                                        *ngIf="s.TradeStatus=='Rejected'">{{s.TradeStatus}}</span>
+                                </td>
+                                <td class="text-end">
+                                   
+                                    <button type="button" class="btn btn-primary waves-effect waves-light"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="View & Download"
+                                        (click)="viewTradeDetails(s)"><i
+                                            class="fa fa-eye font-size-16 align-middle me-2"></i> View</button>
+                                    <!-- </div> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+</div>
+<div class="row" *ngIf="paymentOpen">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Accept Or Reject Trade</h5>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="backToSummary()"><i
+                            class="bx bx-left-arrow-alt"></i>Back</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <app-customer-payment [seller]="sellerModel"></app-customer-payment>
+
+            </div>
+            <div class="card-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="openDetails">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between">
+                    <h5 class="card-title">Trade Details</h5>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="backToSummary()"><i
+                            class="bx bx-left-arrow-alt"></i>Back</button>
+                </div>
+
+            </div>
+            <!-- end card header -->
+            <app-seller-trade-summary-details [seller]="sellerDetails"></app-seller-trade-summary-details>
+
+        </div>
+    </div>
+</div>

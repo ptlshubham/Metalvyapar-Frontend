@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Enqiry Box</h5>
+            </div>
+            <ul class="message-list">
+                <li class="unread" *ngFor="let email of emailData | slice:0:20; let i = index;"
+                    [ngClass]="{ 'unread': email.isactive=== true }">
+                    <div class="col-mail col-mail-1">
+                        <div class="checkbox-wrapper-mail">
+                            <input type="checkbox" id="chk-{{i}}" (change)="selectMail($event,email.id)" />
+                            <label for="chk-{{i}}"></label>
+                        </div>
+                        <a [routerLink]="['../grivance-read',email.id]" class="title">{{email.name}}</a>
+                        <span class="star-toggle far fa-star"></span>
+                    </div>
+                    <div class="col-mail col-mail-2">
+                        <a [routerLink]="['../grivance-read',email.id]" class="subject"><span
+                                class="{{email.bg_color}} badge me-2">{{email.btn}}</span>{{email.subject}}
+                        </a>
+                        <div class="date">{{email.createddate | date}}</div>
+                    </div>
+                </li>
+            </ul>
+
+        </div> <!-- card -->
+        <div class="row">
+            <div class="col-7">
+                Showing {{startIndex}} - {{endIndex}} of {{totalRecords}}
+            </div>
+            <div class="col-5">
+                <div class="btn-group float-end">
+                    <ngb-pagination class="pagination-rounded" [collectionSize]="totalRecords"
+                        (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize">
+                    </ngb-pagination>
+                    <!--Pagination-->
+                </div>
+            </div>
+        </div>
+        <div class="email-rightbar mb-3">
+
+
+        </div> <!-- end Col-9 -->
+
+    </div>
+
+</div><!-- End row -->

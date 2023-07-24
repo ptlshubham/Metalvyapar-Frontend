@@ -1,0 +1,110 @@
+<div class="invoice-title">
+    <div class="d-flex align-items-start">
+        <div class="flex-grow-1">
+            <div class="mb-4">
+                <h4 class="float-start font-size-16">Trade Details</h4>
+
+            </div>
+        </div>
+        <div class="flex-shrink-0">
+            <div class="mb-4">
+                <h4 class="float-end font-size-16">Order ID: <span class="text-muted">{{buyer.oid}}</span></h4>
+            </div>
+        </div>
+    </div>
+
+    <p class="mb-1"></p>
+    <p class="mb-1"></p>
+</div>
+<hr class="my-4">
+<div class="row">
+    <div class="col-sm-6">
+        <div>
+            <h5 class="font-size-15 mb-3">Customer Details:</h5>
+            <!-- <h5 class="font-size-14 mb-2">Name: <span class="text-muted">{{buyer.sname}}</span></h5> -->
+            <h5 class="font-size-14 mb-2">Location: <span class="text-muted">{{buyer.location}}</span>
+            </h5>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div>
+            <div>
+                <h5 class="font-size-15">Order Date:</h5>
+                <p>February 16, 2020</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-2 mt-3">
+    <h5 class="font-size-15">Order summary</h5>
+</div>
+<div class="p-4 border rounded">
+    <div class="table-responsive">
+        <table class="table table-nowrap align-middle mb-0">
+            <thead>
+                <tr>
+                    <th style="width: 70px;">No.</th>
+                    <th></th>
+                    <th>Quality</th>
+                    <th>Rate (₹)</th>
+                    <th>Quantity (MT)</th>
+                    <th>Commission Rate (₹/MT)</th>
+                    <th class="text-end" style="width: 120px;">Total Commission (₹)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">01</th>
+                    <td>
+
+                    </td>
+                    <td>{{buyer.BuyerQuality}}</td>
+                    <td>{{buyer.BuyerRate}}</td>
+                    <td>{{buyer.SellerQuantity}}</td>
+                    <td>{{comRate}}</td>
+                    <td class="text-end">{{comTotal}}</td>
+                </tr>
+
+                <!-- <tr>
+                    <th scope="row" colspan="6" class="text-end">Sub Total</th>
+                    <td class="text-end">{{withoutTax}}</td>
+                </tr> -->
+                <tr>
+                    <th scope="row" colspan="6" class="text-end">
+                        GST 18%</th>
+                    <td class="text-end">{{GSTAmount}} </td>
+                </tr>
+                <!-- <tr>
+                    <th scope="row" colspan="6" class="border-0 text-end">
+                        TDS 1%</th>
+                    <td class="border-0 text-end">{{TDSAmount}} ₹</td>
+                </tr> -->
+                <tr>
+                    <th scope="row" colspan="6" class="border-0 text-end">Total</th>
+                    <td class="border-0 text-end">
+                        <h4 class="m-0">{{finalTotal}} ₹</h4>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="py-2 mt-3">
+    <h5 class="font-size-15">Payment Options</h5>
+</div>
+<div class="row ">
+    <div class="col-lg-4">
+        <div class="btn-group btn-group-example mb-3" role="group">
+            <button type="button" class="btn btn-outline-primary w-sm">PAYTM</button>
+            <button type="button" class="btn btn-outline-primary w-sm">RAZERPAY</button>
+        </div>
+    </div>
+</div>
+<div class="d-print-none mt-3">
+    <div class="float-end">
+        <!-- <a class="btn btn-danger waves-effect waves-light me-1"><i class="fa fa-times"></i>Cancel</a> -->
+        <a class="btn btn-primary w-md waves-effect waves-light me-1" (click)="tradeComissionPayment()"><i
+                class="fa fa-inr"></i> PAY</a>
+    </div>
+</div>

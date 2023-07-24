@@ -1,0 +1,69 @@
+<!-- Right Sidebar -->
+<div class="right-bar" (clickOutside)="hide()">
+    <ngx-simplebar class="h-100">
+        <div class="rightbar-title d-flex align-items-center bg-white p-3">
+            <!-- <h5 class="m-0 me-2 text-white">Metal Vyapar</h5> -->
+            <a class="logo logo-dark">
+                <span class="logo-sm">
+                    <img src="../../../assets/images/MV.png" alt="" height="24"><span class="logo-txt"
+                    style="color: #162149;">Metal Vyapar
+                </span>
+                </span>
+                <span class="logo-lg">
+                    <img src="../../../assets/images/MV.png" alt="" height="40"> <span class="logo-txt"
+                        style="color: #162149;">Metal Vyapar
+                    </span>
+                </span>
+            </a>
+            <a href="javascript:void(0);" class="right-bar-toggle ms-auto" (click)="hide();">
+                <i class="mdi mdi-close noti-icon"></i>
+            </a>
+        </div>
+
+        <!-- Settings -->
+        <hr class="m-0" />
+        <div id="sidebar-menu">
+            <ul class="metismenu list-unstyled" *ngIf="isUser==null">
+                <li>
+                    <a routerLink="/pages/home" class="is-parent">
+                        <i-feather name="home"></i-feather>
+                        <span>Home</span>
+                        <span class="badge rounded-pill float-end bg-soft-primary"> </span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/pages/about" class="is-parent">
+                        <i-feather name="home"></i-feather>
+                        <span>About Us</span>
+                        <span class="badge rounded-pill float-end bg-soft-primary"> </span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/landing/support" class="is-parent">
+                        <i-feather name="home"></i-feather>
+                        <span>About Us</span>
+                        <span class="badge rounded-pill float-end bg-soft-primary"> </span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="metismenu list-unstyled" *ngIf="isUser!=null">
+                <li>
+                    <a routerLink="/landing/user-home" class="is-parent">
+                        <i-feather name="home"></i-feather>
+                        <span>Home</span>
+                        <span class="badge rounded-pill float-end bg-soft-primary"> </span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/landing/support" class="is-parent">
+                        <i-feather name="help-circle"></i-feather>
+                        <span>Help & Support</span>
+                        <span class="badge rounded-pill float-end bg-soft-primary"> </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </ngx-simplebar>
+</div>
+<!-- /Right-bar -->

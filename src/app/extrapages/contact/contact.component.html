@@ -1,0 +1,121 @@
+<app-header-main></app-header-main>
+<div class="row bg-soft-light mt-5">
+    <div class="col-lg-12 mb-5" style="margin-bottom: 6% !important;">
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-xl-5 col-lg-8">
+                <div class="text-center">
+                    <h3>Get In Touch</h3>
+                    <p class="text-muted">Register with us and skip trade intermediaries. We connect you to
+                        recyclers and smelters pan-India and offer you the best rate in real-time.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h4>Feel free to contact us, we will be very happy to assist you.</h4>
+                            <p class="text-muted">Please fill out this form</p>
+                        </div>
+                        <div class="card-body mb-3">
+                            <form class="needs-validation" (ngSubmit)="formSubmit()"
+                                [formGroup]="tooltipvalidationform">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3 position-relative">
+                                            <label for="validationTooltip01">Name</label>
+                                            <input type="text" class="form-control" formControlName="name"
+                                                id="validationTooltip01" placeholder="Name" value="Mark"
+                                                [ngClass]="{'is-invalid': formsubmit && formData.name.errors}">
+                                            <div *ngIf="formsubmit && formData.name.errors" class="invalid-tooltip">
+                                                <span *ngIf="formData.name.errors.required">Please provide a valid
+                                                    Name.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3 position-relative">
+                                            <label for="validationTooltip01">Email</label>
+                                            <input type="email" formControlName="email"
+                                                [ngClass]="{ 'is-invalid': formsubmit && formData.email.errors }"
+                                                class="form-control" id="email" placeholder="Enter email">
+                                            <div *ngIf="formsubmit && formData.email.errors" class="invalid-tooltip">
+                                                <span *ngIf="formData.email.errors.required">Please provide a valid
+                                                    email.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <div class="mb-3 position-relative">
+                                            <label for="validationTooltip03">Subject</label>
+                                            <input type="text" class="form-control" id="validationTooltip03"
+                                                placeholder="subject" formControlName="subject"
+                                                [ngClass]="{'is-invalid': formsubmit && formData.subject.errors}">
+                                            <div *ngIf="formsubmit && formData.subject.errors" class="invalid-tooltip">
+                                                <span *ngIf="formData.subject.errors.required">Please provide a valid
+                                                    subject.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3 position-relative">
+                                            <label for="validationTooltip04" class="form-label">Enter Message</label>
+                                            <textarea id="basicpill-message-input1" class="form-control"
+                                                formControlName="message" rows="3" placeholder="Your Message"
+                                                [ngClass]="{'is-invalid': formsubmit && formData.message.errors}"></textarea>
+                                            <div *ngIf="formsubmit && formData.message.errors" class="invalid-tooltip">
+                                                <span *ngIf="formData.message.errors.required">Please provide a valid
+                                                    message.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h4>Reach Us</h4>
+                            <p class="text-muted">For more details you can contact us.</p>
+                        </div>
+                        <div class="card-body  text-center">
+                            <i class="fas fa-map-marker-alt mt-0 c-icon"> </i>
+                            <h5 class="mb-1 mt-1">Address</h5>
+                            <h5 class="mb-1 mt-1">
+                                <small class="text-muted">32a, Knowledge Park 1, Greater Noida, Noida </small><br>
+                                <small class="text-muted">Delhi, India, 201301</small>
+                            </h5>
+                            <i class="fas fa-envelope mt-1 c-icon"> </i>
+                            <h5 class="mb-1 mt-1">Email</h5>
+                            <h5 class="mb-1 mt-1">
+                                <small class="text-muted">info@nextgenmetals.com</small>
+                            </h5>
+                            <i class="fas fa-phone-alt mt-1 c-icon"> </i>
+                            <h5 class="mb-1 mt-1">Phone</h5>
+                            <h5 class="mb-1 mt-1">
+                                <small class="text-muted">01202230297</small> /
+                                <small class="text-muted">+91 9898942298</small>
+
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px">
+            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+        </agm-map>
+    </div>
+</div>

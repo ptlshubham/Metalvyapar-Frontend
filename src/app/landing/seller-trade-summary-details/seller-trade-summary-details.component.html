@@ -1,0 +1,399 @@
+<div class="card-body">
+    <ng-template #centerDataModal1 let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title mt-0">Buyer Billing Details</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+        </div>
+        <div class="modal-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Company Name</dt>
+                <dd class="col-sm-8">{{bankDetails.companyName}} </dd>
+                <dt class="col-sm-4">Address</dt>
+                <dd class="col-sm-8">{{bankDetails.location}}</dd>
+                <dt class="col-sm-4">Pincode</dt>
+                <dd class="col-sm-8">{{bankDetails.pincode}}</dd>
+                <dt class="col-sm-4 text-truncate">GST Number</dt>
+                <dd class="col-sm-8">{{bankDetails.GSTNo}}</dd>
+                <dt class="col-sm-4 text-truncate">PAN</dt>
+                <dd class="col-sm-8">{{bankDetails.PANCard}}</dd>
+
+            </dl>
+        </div>
+    </ng-template>
+    <div>
+        <form [formGroup]="validationForm">
+            <input type="hidden" />
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Trade ID</label>
+                        <input type="text" disabled class="form-control" id="buyer" placeholder="Order ID"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.SubOrderId">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Buyer Name</label>
+                        <input type="text" disabled class="form-control" id="buyer" placeholder="Enter Buyer"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.CompanyName">
+                    </div>
+                </div>
+                <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Buyer Location</label>
+                        <input type="text" disabled class="form-control" id="location" placeholder="Enter Buyer"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.location">
+                    </div>
+                </div> -->
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <label>Quality</label>
+                    <input type="text" class="form-control" id="quality" placeholder="Enter quality" disabled
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.BuyerQuality">
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Quantity (MT)</label>
+                        <input type="number" disabled class="form-control" id="quantity"
+                            placeholder="Enter Quantity (MT)" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="sellerModel.SellerQuantity">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Rate (₹/MT)<a placement="bottom"
+                                ngbTooltip="Rates are exclusive of taxes. 18% GST will be applicable on the rates.">*</a></label>
+                        <input type="number" disabled class="form-control" id="rate" placeholder="Enter Rate (₹/MT)"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.BuyerRate">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Delivery Terms (Days)</label>
+                        <input type="number" disabled class="form-control" id="terms"
+                            placeholder="Enter Delivery Terms (days)" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="sellerModel.DeliveryTerms">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Payment Terms (Days)<a placement="bottom"
+                                ngbTooltip=" Payment days will be counted after buyer has received the material.">**</a></label>
+                        <input type="text" disabled class="form-control" id="terms"
+                            placeholder="Enter Payment Terms (days)" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="sellerModel.PaymentDays">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Trade Date</label>
+                        <input type="text" disabled class="form-control" id="tradeDate" placeholder="Enter Trade date"
+                            value="{{sellerModel.OrderCreatDate|date}}">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Buyer Billing Details</label> <br>
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-primary waves-effect waves-light"
+                                data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"
+                                (click)="openBillingDetails(centerDataModal1)"><i
+                                    class="fa fa-address-card font-size-14 align-middle"></i> View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Trade Status</label>
+                        <input type="text" disabled class="form-control" id="terms" placeholder="Enter Trade Status"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.TradeStatus">
+                    </div>
+                </div> -->
+                <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Delivery Reciept/Proof Images</label> <br>
+                        <img class="img-thumbnail" alt="Delivery Reciept" data-holder-rendered="true">
+                    </div>
+                </div> -->
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                    <div class="form-group mb-3">
+                        <label>Material Images</label> <br>
+                        <img class="img-thumbnail" alt="200x200"
+                            src="https://api.metalvyapar.com{{sellerModel.MaterialImage}}" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,sellerModel.MaterialImage)" data-holder-rendered="true"
+                            style="height: 200px; width: 200px;">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12" *ngFor="let m of materialsImagesList">
+                    <div class="form-group mb-3">
+                        <label>&nbsp;</label> <br>
+                        <img class="img-thumbnail" alt="200x200" src="https://api.metalvyapar.com{{m.image}}"
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,m.image)" data-holder-rendered="true"
+                            style="height: 200px; width: 200px;">
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="sellerModel.TradeStatus !='Rejected'">
+
+                <!-- view transport deails -->
+                <div *ngFor="let s of transportDetails;let i=index">
+                    <div class="row">
+                        <hr>
+                        <h4 class="mb-3">Transport Vehicle Details : {{i+1}} </h4>
+                        <hr>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Dispatched Date</label>
+                                <input type="text" disabled class="form-control" id="startDate"
+                                    value={{s.StartDate|date}}>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Transport Vehicle Number</label>
+                                <input type="text" disabled class="form-control" id="vehicleNo"
+                                    placeholder="Transport Vehicle Number" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="s.VehicleNo">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Transporter Contact No</label>
+                                <input type="text" disabled [(ngModel)]="s.DriverContact"
+                                    [ngModelOptions]="{standalone: true}" class="form-control" id="driverContact"
+                                    placeholder="Enter Transporter Contact">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Material Quantity (MT)</label>
+                                <input type="text" disabled value="{{s.MaterialQuantity}}" class="form-control"
+                                    id="materialQuantity" placeholder="Enter Transporter Contact">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Invoice Amount (₹)</label>
+                                <input type="text" disabled value="{{s.InvoiceAmount}}" class="form-control"
+                                    id="invoiceAmount" placeholder="Enter Transporter Contact">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Weight Proof Images</label><br>
+                                <img class="img-thumbnail" src="https://api.metalvyapar.com{{s.WeightSlip}}"
+                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"
+                                    (click)="centerModal(centerDataModal,s.WeightSlip)" alt="Delivery Reciept"
+                                    data-holder-rendered="true" style="height: 200px; width: 200px;">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Invoice Images</label> <br>
+                                <!-- <a href="https://api.metalvyapar.com{{s.InvoiceImage}}" target="_blank">jbjbjbjbjbj</a> -->
+                                <img class="img-thumbnail" src="https://api.metalvyapar.com{{s.InvoiceImage}}"
+                                    data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"
+                                    (click)="centerModal(centerDataModal,s.InvoiceImage)" alt="Delivery Reciept"
+                                    data-holder-rendered="true" style="height: 200px; width: 200px;">
+                            </div>
+                        </div>
+                        <!-- view transport deails -->
+                    </div>
+                </div>
+                <div *ngFor="let add of addTransporter; let ind = index">
+                    <div class="row">
+                        <hr>
+                        <h4 class="mb-3">Add New Transport Vehicle Details </h4>
+                        <hr>
+
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Transporter Vehicle No</label>
+                                <input type="text" formControlName="vehicle" [(ngModel)]="add.transportVehicle"
+                                    [ngClass]="{ 'is-invalid': f.vehicle.touched && f.vehicle.errors }"
+                                    class="form-control" id="vehicle" placeholder="Enter Vehicle Number">
+                                <div *ngIf="f.vehicle.touched && f.vehicle.errors" class="invalid-feedback">
+                                    <div *ngIf="f.vehicle.errors.required">Vehicle number is required</div>
+                                    <div *ngIf="f.vehicle.errors.min">Only numbers allowed & Do not enter characters.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Transporter Contact No</label>
+                                <input type="number" formControlName="contact" [(ngModel)]="add.transporterContact"
+                                    [ngClass]="{ 'is-invalid': f.contact.touched && f.contact.errors }"
+                                    class="form-control" id="contact" placeholder="Enter Transporter Contact">
+                                <div *ngIf="f.contact.touched || f.contact.invalid || f.contact.pristine"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f.contact.errors?.required">Transporter number is required.</div>
+                                    <div *ngIf="f.contact.errors?.pattern">Please, Enter 10 digit Mobile Number.</div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Material Quantity (MT)</label>
+                                <input type="number" formControlName="materialQuantity" (keyup)="CheckQuantity(ind)"
+                                    [(ngModel)]="add.materialQuantity"
+                                    [ngClass]="{ 'is-invalid': f.materialQuantity.touched && f.materialQuantity.errors }"
+                                    class="form-control" id="materialQuantity" placeholder="Enter Material Quantity">
+                                <div *ngIf="f.materialQuantity.touched && f.materialQuantity.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="f.materialQuantity.errors.required">Material quantity is required. Only
+                                        Numbers allowed</div>
+                                    <!-- <div *ngIf="f.materialQuantity.errors?.pattern">Only numbers allowed & Do not enter
+                                    characters.
+                                </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label>Invoice Amount (₹)</label>
+                                <input type="number" formControlName="invoiceAmount" [(ngModel)]="add.invoiceAmount"
+                                    [ngClass]="{ 'is-invalid': f.invoiceAmount.touched && f.invoiceAmount.errors }"
+                                    class="form-control" id="invoiceAmount" placeholder="Enter Invoice Amount">
+                                <div *ngIf="f.invoiceAmount.touched && f.invoiceAmount.errors" class="invalid-feedback">
+                                    <div *ngIf="f.invoiceAmount.errors.required">Invoice amount is required</div>
+                                    <div *ngIf="f.invoiceAmount.errors.min">Only numbers allowed & Do not enter
+                                        characters.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Delivery Status</label>
+                                <select required class="form-control form-select" formControlName="selectStatus"
+                                    [ngClass]="{'is-invalid': f.selectStatus.touched && f.selectStatus.errors}"
+                                    [(ngModel)]="sellerModel.deliveryStatus">
+                                    <option value disabled>Select Delivery Status</option>
+                                    <option value="Dispatched">Dispatched</option>
+                                    <!-- <option value="DELIVERED">DELIVERED</option> -->
+                                </select>
+                                <div *ngIf="f.selectStatus.touched && f.selectStatus.errors" class="invalid-feedback">
+                                    <span *ngIf="f.selectStatus.errors.required">Select delivery status is
+                                        required.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                            <div class="form-group mb-3">
+                                <label>Weight Proof Image Uploader</label>
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+                                        <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" #fileInput
+                                            (change)="uploadFile($event,ind)" />
+                                    </div>
+                                    <div class="avatar-preview">
+                                        <div id="imagePreview" [style.backgroundImage]="'url('+ add.imageUrl +')'">
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 10px;">
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block"
+                                            (click)="fileInput.click()">Upload
+                                            Image</button>
+                                        <button type="submit" class="btn btn-warning btn-sm btn-block"
+                                            (click)="removeRecentWeightImage(ind)">Remove
+                                            Image</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                            <div class="form-group mb-3">
+                                <label>Invoice Image Uploader</label>
+                                <!-- <input class="form-control" type="file" id="formFile" accept=".pdf,.jpg,.jpeg,.png"
+                                (change)="invoiceUploadFile($event,ind)"> -->
+                                <div class="avatar-upload">
+                                    <div class="avatar-edit">
+                                        <input type='file' id="imageUpload" accept=".pdf,.png, .jpg, .jpeg" #fileInput1
+                                            (change)="invoiceUploadFile($event,ind)" />
+                                    </div>
+                                    <div class="avatar-preview">
+                                        <div id="imagePreview"
+                                            [style.backgroundImage]="'url('+ add.invoiceImageUrl +')'">
+                                        </div>
+                                    </div>
+                                    <div style="margin-top: 10px;">
+                                        <button type="submit" class="btn btn-primary btn-sm btn-block"
+                                            (click)="fileInput1.click()">Upload
+                                            Image</button>
+                                        <button type="submit" class="btn btn-warning btn-sm btn-block"
+                                            (click)="removeImageData(ind)">Remove
+                                            Image</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4  align-items-center justify-content-center"
+                            style="text-align: center;margin-bottom: 3rem;margin-top: 1rem;"
+                            (click)="addTransporterList(ind)">
+                            <label style="font-size: large;">Click + to Add more Transport Details </label><br>
+                            <i class="bx bx-plus c-icon align-items-center justify-content-center"></i>
+                            <i class="bx bx-x c-icon" *ngIf="addTransporter.length>1"
+                                (click)="removeTransporterList(ind)" style="margin-left: 10px;;"></i>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="form-group mt-3 mb-3 form-check">
+                    <input id="term-check01" type="checkbox" [(ngModel)]="tnc" class="form-check-input"
+                        [ngModelOptions]="{standalone: true}" name="term-check01" required
+                        data-pristine-required-message="You must accept the terms and conditions" />
+                    <label class="form-check-label" for="term-check01">I accept the terms and
+                        conditions</label><br />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" (click)="submitTransportData()"
+                        [disabled]="validationForm.invalid || !tnc ">Submit</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Image Viewer</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <link rel="stylesheet" type="text/css"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="image-viewer-container" [class.fullscreen]="fullscreen">
+                        <div class="image-viewer">
+                            <ngx-image-viewer #imageViewer [src]="images" [(index)]="imageIndex"></ngx-image-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template><!-- /.modal -->

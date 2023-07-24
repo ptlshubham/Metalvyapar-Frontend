@@ -1,0 +1,735 @@
+<div class="card-body bg-soft-light">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <!-- <div class="card">
+                <div class="card-body">
+                    <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav nav-tabs-custom card-header-tabs ">
+                        <li [ngbNavItem]="1" class="nav-item">
+                            <a ngbNavLink class="nav-link px-3">
+                                Overview
+                            </a>
+                            <ng-template ngbNavContent>
+                                <div class="tab-pane active" id="overview" role="tabpanel">
+                                    
+                                </div>
+                            </ng-template>
+                        </li>
+
+                        <li [ngbNavItem]="2" class="nav-item">
+                            <a ngbNavLink class="nav-link px-3">
+                                Trade List
+                            </a>
+                            <ng-template ngbNavContent>
+                                <div class="tab-pane" id="about" role="tabpanel">
+                                    <div class="card" *ngIf="tradeList != undefined">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0">Trade List</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-nowrap align-middle mb-0">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Date</th>
+                                                            <th>Order_ID</th>
+                                                            <th>Quality</th>
+                                                            <th>Quantity</th>
+                                                            <th>Rate</th>
+                                                            <th>Validity <i class="fa fa-info-circle"
+                                                                    style="color: blue;" placement="bottom"
+                                                                    ngbTooltip="Trade Valid till mentioned date."></i>
+                                                            </th>
+                                                            <th>Payment_terms</th>
+                                                            <th>Commission</th>
+                                                            <th>Delivery</th>
+                                                            <th>Payment</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let s of tradeList">
+                                                            <th scope="row">{{s.id}}</th>
+                                                            <td>{{s.CreatedDate |date}}</td>
+                                                            <td>{{s.OrderId}}</td>
+                                                            <td>{{s.BuyerQuality}}</td>
+                                                            <td>{{s.BuyerQuantity}} ton.</td>
+                                                            <td>{{s.BuyerRate}} ₹</td>
+                                                            <td>{{s.PaymentValidity |date}}</td>
+                                                            <td>{{s.PaymentTerms}}</td>
+                                                            <td>
+                                                                <div class="d-flex flex-wrap gap-2">
+                                                                    <button type="button"
+                                                                        class="btn btn-soft-primary waves-effect waves-light"
+                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                                                        title="View" (click)="editAcceptOrder(s)"><i
+                                                                            class="bx bx-edit font-size-16 align-middle"></i></button>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                        <li [ngbNavItem]="3" class="nav-item">
+                            <a ngbNavLink class="nav-link px-3">
+                                Trade Details
+                            </a>
+                            <ng-template ngbNavContent>
+                                <div class="tab-pane" id="details" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0">Trade Details</h5>
+                                        </div>
+                                        <div class="card-body">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div [ngbNavOutlet]="nav" class=""></div> -->
+            <div class="card">
+               <div class="card-header">
+                    <!-- <h5 class="card-title mb-0">Customer Profile</h5> -->
+                </div> 
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+
+                                <div class="card-body" *ngIf="customerDetails != 'undefined'">
+                                    <aw-wizard [navBarLayout]="'large-empty-symbols'">
+                                        <aw-wizard-step stepTitle="Personal Details">
+                                            <ng-template awWizardStepSymbol>
+                                                <i class=" bx bxs-user"></i>
+                                            </ng-template>
+                                            <div class="row">
+                                                <form [formGroup]="validationForm">
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    class="form-label">Salutation</label>
+                                                                <select required
+                                                                    class="form-control form-select"
+                                                                    required
+                                                                    formControlName="select"
+                                                                    [(ngModel)]="customerDetails.Salutation">
+                                                                    <option selected>Select
+                                                                        Salutation</option>
+                                                                    <option value="Mr">Mr.
+                                                                    </option>
+                                                                    <option value="Mrs">Mrs.
+                                                                    </option>
+                                                                    <option value="Ms">Ms.
+                                                                    </option>
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">First
+                                                                    Name</label>
+                                                                <input type="text"
+                                                                    formControlName="fname"
+                                                                    class="form-control"
+                                                                    id="fname"
+                                                                    placeholder="Enter First Name"
+                                                                    [(ngModel)]="customerDetails.FirstName">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Last
+                                                                    Name</label>
+                                                                <input type="text"
+                                                                    formControlName="lname"
+                                                                    class="form-control"
+                                                                    id="lname"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.lname.errors }"
+                                                                    placeholder="Enter Last Name"
+                                                                    [(ngModel)]="customerDetails.LastName">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Phone
+                                                                    Number</label>
+                                                                <input type="number"
+                                                                    formControlName="contact"
+                                                                    class="form-control"
+                                                                    id="contact"
+                                                                    placeholder="Enter Phone Number"
+                                                                    [(ngModel)]="customerDetails.Phone">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Email
+                                                                    Address</label>
+                                                                <input type="email"
+                                                                    formControlName="email"
+                                                                    class="form-control"
+                                                                    id="useremail"
+                                                                    placeholder="Enter email"
+                                                                    [(ngModel)]="customerDetails.Email">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    class="form-label">Register
+                                                                    As</label>
+                                                                <input type="text" required
+                                                                    class="form-control"
+                                                                    formControlName="regAs"
+                                                                    [(ngModel)]="customerDetails.Role" >
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <ul class="list-inline wizard mb-0">
+                                                            <li
+                                                                class="next list-inline-item float-end">
+                                                                <button type="submit"
+                                                                    class="btn btn-primary"
+                                                                    awNextStep>Next</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </aw-wizard-step>
+
+                                        <aw-wizard-step stepTitle="Company Details">
+                                            <ng-template awWizardStepSymbol>
+                                                <i class="bx bx-buildings"></i>
+                                            </ng-template>
+                                            <div class="row">
+                                                <form [formGroup]="validationForm">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-pancard-input1"
+                                                                    class="form-label">Company
+                                                                    Name</label>
+                                                                <input type="text"
+                                                                    formControlName="companyname"
+                                                                    class="form-control"
+                                                                    id="companyname"
+                                                                    placeholder="Enter Company Name"
+                                                                    [(ngModel)]="customerDetails.CompanyName">
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-vatno-input1"
+                                                                    class="form-label">Designation</label>
+                                                                <input type="text"
+                                                                    formControlName="designation"
+                                                                    class="form-control"
+                                                                    id="designation"
+                                                                    placeholder="Enter designation"
+                                                                    [(ngModel)]="customerDetails.Designation">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-cstno-input1"
+                                                                    class="form-label">GST
+                                                                    Number</label>
+                                                                <input type="text"
+                                                                    formControlName="gstno"
+                                                                    class="form-control"
+                                                                    id="gstno"
+                                                                    placeholder="Enter GST Number"
+                                                                    [(ngModel)]="customerDetails.GSTNo">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-cstno-input1"
+                                                                    class="form-label">PAN</label>
+                                                                <input type="text"
+                                                                    formControlName="pancard"
+                                                                    class="form-control"
+                                                                    id="pancard"
+                                                                    [(ngModel)]="customerDetails.PANCard"
+                                                                    placeholder="Enter PAN Card Number">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-phoneno-input1"
+                                                                    class="form-label">Alternate
+                                                                    Phone</label>
+                                                                <input type="number"
+                                                                    formControlName="workphone"
+                                                                    class="form-control"
+                                                                    id="workphone"
+                                                                    placeholder="Enter Alternate Number"
+                                                                    [(ngModel)]="customerDetails.CompanyContact">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    class="form-label">Material
+                                                                    Quality</label>
+                                                                <div class="multi_default">
+                                                                    <ng-select [items]="Default"
+                                                                        [multiple]="true"
+                                                                        bindValue="name"
+                                                                        bindLabel="name"
+                                                                        (click)="selectQty(multiDefaultOption)"
+                                                                        formControlName="multiDefaultOption"
+                                                                        [(ngModel)]="multiDefaultOption">
+                                                                        <!-- <ng-template ng-optgroup-tmp let-item="item">
+                                                                            {{item.country || 'Unnamed group'}}
+                                                                        </ng-template> -->
+                                                                    </ng-select>
+                                                                </div>
+                                                                <!-- [ngClass]="{ 'is-invalid': f.multiDefaultOption.touched && f.multiDefaultOption.errors }"
+                                                                <div *ngIf="f.multiDefaultOption.touched && f.selectMaterial.errors"
+                                                                    class="invalid-feedback">
+                                                                    <span *ngIf="f.selectMaterial.errors?.required">This field is
+                                                                        required.</span>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-phoneno-input1"
+                                                                    class="form-label">Average
+                                                                    Monthly Trade (MT)</label>
+                                                                <input type="number"
+                                                                    formControlName="avg_mnth_trade"
+                                                                    class="form-control"
+                                                                    id="avg_mnth_trade"
+                                                                    [(ngModel)]="customerDetails.AvgMonthTrade"
+                                                                    placeholder="Enter Average Monthly Trade (Approx)">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-address-input"
+                                                                    class="form-label">Address</label>
+                                                                <textarea
+                                                                    id="basicpill-address-input"
+                                                                    class="form-control"
+                                                                    rows="2" id="address"
+                                                                    formControlName="address"
+                                                                    placeholder="Enter Address (Area and Street)"
+                                                                    [(ngModel)]="customerDetails.street"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label for="basicpill-address-input"
+                                                                    class="form-label">Address</label>
+                                                                <textarea id="basicpill-address-input" class="form-control" rows="2"
+                                                                    id="address" formControlName="address"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                                                                    placeholder="Address (Area and Street)"></textarea>
+                                                                <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.address.errors.required">Address is
+                                                                        required
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> -->
+                                                        <!-- <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label for="basicpill-vatno-input1" class="form-label">Enter
+                                                                    City/District/Town</label>
+                                                                <input type="text" formControlName="city" class="form-control"
+                                                                    id="city"
+                                                                    placeholder="City/District/Town"
+                                                                    [(ngModel)]="customerDetails.city">
+                                                               
+                                                            </div>
+                                                        </div> -->
+                                                       
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group mb-3">
+                                                                <label for="Selct State"
+                                                                    class="form-label">Select
+                                                                    State</label>
+                                                                <select required
+                                                                    class="form-select"
+                                                                    formControlName="selectState"
+                                                                    [(ngModel)]="customerDetails.state">
+                                                                    <option>Select State
+                                                                    </option>
+                                                                    <option
+                                                                        *ngFor="let c of stateData"
+                                                                        value="{{c.name}}">
+                                                                        {{c.name}}
+                                                                    </option>
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group mb-3">
+                                                                <label for="Selct City"
+                                                                    class="form-label">Select
+                                                                    City</label>
+                                                                <select class="form-select"
+                                                                    formControlName="city"
+                                                                    [(ngModel)]="customerDetails.city"
+                                                                    (change)="selectCityData($event)">
+                                                                    <option>Select City</option>
+                                                                    <option
+                                                                        *ngFor="let c of cityListData"
+                                                                        value="{{c.city}}">
+                                                                        {{c.city}}
+                                                                    </option>
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-phoneno-input1"
+                                                                    class="form-label">Enter
+                                                                    Pincode</label>
+                                                                <input type="number"
+                                                                    formControlName="pincode"
+                                                                    class="form-control"
+                                                                    id="pincode"
+                                                                    placeholder="Enter Pincode Number"
+                                                                    [(ngModel)]="customerDetails.pincode">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-vatno-input1"
+                                                                    class="form-label">Enter
+                                                                    Landmark</label>
+                                                                <input type="text"
+                                                                    formControlName="landmark"
+                                                                    class="form-control"
+                                                                    id="landmark"
+                                                                    placeholder="Landmark (Optional)"
+                                                                    [(ngModel)]="customerDetails.landmark">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="list-inline wizard mb-0">
+                                                        <li class="previous list-inline-item">
+                                                            <button class="btn btn-primary"
+                                                                awPreviousStep>Previous</button>
+                                                        </li>
+                                                        <li
+                                                            class="next list-inline-item float-end">
+                                                            <button class="btn btn-primary"
+                                                                awNextStep>Next</button>
+                                                        </li>
+                                                    </ul>
+                                                </form>
+                                            </div>
+                                        </aw-wizard-step>
+                                        <aw-wizard-step stepTitle="Bank Details">
+                                            <ng-template awWizardStepSymbol>
+                                                <i class="bx bxs-bank"></i>
+                                            </ng-template>
+                                            <div class="row">
+                                                <form [formGroup]="validationForm">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    class="form-label">Account
+                                                                    Type</label>
+                                                                <select required
+                                                                    class="form-control form-select"
+                                                                    formControlName="selectAcc"
+                                                                    [(ngModel)]="customerDetails.AccType">
+                                                                    <option>Select Account Type
+                                                                    </option>
+                                                                    <!-- <option value="saving">Saving Account</option> -->
+                                                                    <option value="current"
+                                                                        selected>Current Account
+                                                                    </option>
+                                                                </select>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-pancard-input1"
+                                                                    class="form-label">Account
+                                                                    Holder's
+                                                                    Name</label>
+                                                                <input type="text"
+                                                                    formControlName="acHolder"
+                                                                    class="form-control"
+                                                                    id="acHolder"
+                                                                    [(ngModel)]="customerDetails.AccHolderName"
+                                                                    placeholder="Enter A/C Holder's Name">
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-vatno-input1"
+                                                                    class="form-label">Bank Name
+                                                                </label>
+                                                                <input type="text"
+                                                                    formControlName="bankName"
+                                                                    class="form-control"
+                                                                    id="bankName"
+                                                                    [(ngModel)]="customerDetails.BankName"
+                                                                    placeholder="Enter Bankname">
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-cstno-input1"
+                                                                    class="form-label">Bank A/c
+                                                                    No</label>
+                                                                <input type="number"
+                                                                    formControlName="newAccNo"
+                                                                    class="form-control"
+                                                                    id="newAccNo"
+                                                                    [(ngModel)]="customerDetails.newAccNo"
+                                                                    [ngClass]="{ 'is-invalid': f.newAccNo.touched && f.newAccNo.errors }"
+                                                                    placeholder="Enter Account Number">
+                                                                <div *ngIf="
+                                                                          f.newAccNo.invalid &&
+                                                                          (f.newAccNo.dirty || f.newAccNo.touched)
+                                                                        "
+                                                                    class="form-text text-danger">
+                                                                    <div
+                                                                        *ngIf="f.newAccNo.errors?.['required']">
+                                                                        Field is required
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-cstno-input1"
+                                                                    class="form-label">Bank A/c
+                                                                    No (confirmation)</label>
+                                                                <input type="number"
+                                                                    formControlName="confirmAccNo"
+                                                                    class="form-control"
+                                                                    id="confirmAccNo"
+                                                                    [(ngModel)]="customerDetails.confirmAccNo"
+                                                                    [ngClass]="{ 'is-invalid': f.confirmAccNo.touched && f.confirmAccNo.errors }"
+                                                                    placeholder="Re-Enter Account Number">
+                                                                <div *ngIf="
+                                                                          f.confirmAccNo.invalid &&
+                                                                          (f.confirmAccNo.dirty || f.confirmAccNo.touched)
+                                                                        "
+                                                                    class="form-text text-danger">
+                                                                    <div
+                                                                        *ngIf="f.confirmAccNo.errors?.['required']">
+                                                                        Field is required
+                                                                    </div>
+                                                                    <div
+                                                                        *ngIf="f.confirmAccNo.errors?.['confirmedValidator']">
+                                                                        Bank Account number did
+                                                                        not match
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-phoneno-input1"
+                                                                    class="form-label">Branch
+                                                                    Name</label>
+                                                                <input type="text"
+                                                                    formControlName="branchName"
+                                                                    class="form-control"
+                                                                    id="branchName"
+                                                                    [(ngModel)]="customerDetails.BranchName"
+                                                                    placeholder="Enter Branch Name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-phoneno-input1"
+                                                                    class="form-label">IFSC</label>
+                                                                <input type="text"
+                                                                    formControlName="ISFC"
+                                                                    class="form-control"
+                                                                    id="ISFC"
+                                                                    [(ngModel)]="customerDetails.ISFCCode"
+                                                                    placeholder="Enter ISFC Code">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4"
+                                                            *ngIf="customerDetails.CancelCheque == ''">
+                                                            <div class="mb-3">
+                                                                <label
+                                                                    for="basicpill-phoneno-input1"
+                                                                    class="form-label">Upload
+                                                                    Cancelled Cheque</label>
+                                                                <div class="avatar-upload">
+                                                                    <div>
+                                                                        <div
+                                                                            class="avatar-edit">
+                                                                            <input type='file'
+                                                                                id="imageUpload"
+                                                                                formControlName="cancelCheque"
+                                                                                [ngClass]="{ 'is-invalid': f.cancelCheque.touched && f.cancelCheque.errors }"
+                                                                                accept=".png, .jpg, .jpeg"
+                                                                                #fileInput
+                                                                                (change)="uploadFile($event)" />
+                                                                        </div>
+                                                                        <div *ngIf="f.cancelCheque.touched && f.cancelCheque.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="f.cancelCheque.errors.required">
+                                                                                Cancel Cheque
+                                                                                Image is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            style="margin-top: 10px;">
+                                                                            <button
+                                                                                class="btn btn-primary btn-sm btn-block"
+                                                                                (click)="fileInput.click()">Upload
+                                                                                Image</button>
+                                                                            <button
+                                                                                class="btn btn-warning btn-sm btn-block"
+                                                                                (click)="removeImage()">Remove
+                                                                                Image</button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="avatar-preview">
+                                                                        <div id="imagePreview"
+                                                                            [style.backgroundImage]="'url('+ imageUrl +')'">
+                                                                        </div>
+                                                                        <!-- <img src="https://api.metalvyapar.com{{imageUrl}}"> -->
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-4"
+                                                            *ngIf="customerDetails.CancelCheque != null">
+                                                            <div class="form-group mb-3">
+                                                                <label>Cancelled Cheque
+                                                                    Image</label> <br>
+                                                                <img class="img-thumbnail"
+                                                                    src="https://api.metalvyapar.com{{customerDetails.CancelCheque}}"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target=".bs-example-modal-center"
+                                                                    (click)="centerModal(centerDataModal,customerDetails.CancelCheque)"
+                                                                    alt="Delivery Reciept"
+                                                                    style="height: 200px; width: 200px;"
+                                                                    data-holder-rendered="true">
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <ul class="list-inline wizard mb-0">
+                                                        <li class="previous list-inline-item">
+                                                            <button class="btn btn-primary"
+                                                                awPreviousStep>Previous</button>
+                                                        </li>
+                                                        <li class="next list-inline-item float-end"
+                                                            type="submit"><button
+                                                                class="btn btn-primary"
+                                                                awNextStep (click)="onSubmit()"
+                                                                [disabled]="validationForm.invalid">
+                                                                Submit</button>
+                                                        </li>
+
+                                                    </ul>
+                                                </form>
+                                            </div>
+
+                                        </aw-wizard-step>
+                                    </aw-wizard>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                        <!-- end col -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Image Viewer</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <link rel="stylesheet" type="text/css"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="image-viewer-container" [class.fullscreen]="fullscreen">
+                        <div class="image-viewer">
+                            <ngx-image-viewer #imageViewer [src]="images" [(index)]="imageIndex"></ngx-image-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

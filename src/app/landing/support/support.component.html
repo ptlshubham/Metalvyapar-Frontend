@@ -1,0 +1,85 @@
+<div class="row ">
+    <div class="col-lg-12 mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h3>Leave us message</h3>
+                            <!-- <h4>Feel free to contact us, we will be very happy to assist you.</h4> -->
+                            <!-- <p class="text-muted">Please fill out this form</p> -->
+                        </div>
+                        <div class="card-body mb-3">
+                            <form class="needs-validation" (ngSubmit)="formSubmit()" [formGroup]="validationForm">
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <div class="mb-3 position-relative">
+                                            <label for="validationTooltip03">Subject</label>
+                                            <input type="text" class="form-control" id="validationTooltip03"
+                                                placeholder="Enter Your Subject" formControlName="subject"
+                                                [ngClass]="{'is-invalid': submitted && f.subject.errors}"
+                                                [(ngModel)]="contactModel.subject">
+                                            <div *ngIf="submitted && f.subject.errors" class="invalid-tooltip">
+                                                <span *ngIf="f.subject.errors.required">Please provide a valid
+                                                    subject.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3 position-relative">
+                                            <label for="validationTooltip04" class="form-label">Enter Message</label>
+                                            <textarea id="basicpill-message-input1" class="form-control"
+                                                formControlName="message" rows="5" placeholder="Enter Your Message"
+                                                [ngClass]="{'is-invalid': submitted && f.message.errors}"
+                                                [(ngModel)]="contactModel.message"></textarea>
+                                            <div *ngIf="submitted && f.message.errors" class="invalid-tooltip">
+                                                <span *ngIf="f.message.errors.required">Please provide a valid
+                                                    message.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <div class="col-lg-2">
+                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h4>Our Office</h4>
+                            <!-- <p class="text-muted">For more details you can contact us.</p> -->
+                        </div>
+                        <div class="card-body  text-center">
+                            <i class="fas fa-map-marker-alt mt-0 c-icon"> </i>
+                            <h5 class="mb-1 mt-1">Address</h5>
+                            <h5 class="mb-1 mt-1">
+                                <small class="text-muted">K-10, South City-1 Gurugram,</small>
+                                <small class="text-muted">Haryana-122001</small>
+                            </h5>
+                            <i class="fas fa-envelope mt-1 c-icon"> </i>
+                            <h5 class="mb-1 mt-1">Email</h5>
+                            <h5 class="mb-1 mt-1">
+                                <small class="text-muted"><a href="mailto:contactus@metalvyapar.com"
+                                        target="_blank">contactus@metalvyapar.com</a> </small>
+                            </h5>
+                            <i class="fas fa-phone-alt mt-1 c-icon"> </i>
+                            <h5 class="mb-1 mt-1">Phone</h5>
+                            <h5 class="mb-1 mt-1">
+                                <small class="text-muted"><a href="tel:+91 80012-34567" target="_blank">+91
+                                        80012-34567</a></small>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <agm-map [latitude]="latitude" [longitude]="longitude" style="height: 300px">
+            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+        </agm-map> -->
+    </div>
+</div>

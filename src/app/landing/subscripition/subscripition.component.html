@@ -1,0 +1,86 @@
+<!-- start page title -->
+<div class="container">
+    <div class="row ">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header ">
+                    <h4 class="card-title mb-0 flex-grow-1">Start Your Trading ! Select Plans</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-6" *ngFor="let data of monthlyData">
+                            <div class="card mb-xl-0" [ngClass]=" { 'bg-primary': data.badge === 'Featured' }">
+                                <div class="card-body">
+                                    <div class="p-2">
+                                        <div class="pricing-badge" *ngIf="data.badge">
+                                            <span class="badge">Featured</span>
+                                        </div>
+                                        <h5 class="font-size-16"
+                                            [ngClass]=" { 'text-white': data.badge === 'Featured' }">
+                                            {{data.title}}</h5>
+                                        <h1 class="mt-3" [ngClass]=" { 'text-white': data.badge === 'Featured' }">
+                                            {{data.price}} ₹ <span class="text-muted font-size-16 fw-medium"
+                                                [ngClass]=" { 'text-white': data.badge === 'Featured' }">/
+                                                Month</span></h1>
+                                        <p class="text-muted mt-3 font-size-15"
+                                            [ngClass]=" { 'text-white-50': data.badge === 'Featured' }">
+                                            For small teams trying out Minia for an unlimited
+                                            period of time</p>
+                                        <div class="mt-4 pt-2 text-muted">
+                                            <p class="mb-3 font-size-15"
+                                                [ngClass]=" { 'text-white': data.badge === 'Featured' }">
+                                                <i class="mdi mdi-check-circle text-secondary font-size-18 me-2"
+                                                    [ngClass]=" { 'text-light': data.badge === 'Featured' }"></i>Verifide
+                                                work and
+                                                reviews
+                                            </p>
+                                            <p class="mb-3 font-size-15"
+                                                [ngClass]=" { 'text-white': data.badge === 'Featured' }">
+                                                <i class="mdi mdi-check-circle text-secondary font-size-18 me-2"
+                                                    [ngClass]=" { 'text-light': data.badge === 'Featured' }"></i>Dedicated
+                                                Ac managers
+                                            </p>
+                                            <p class="mb-3 font-size-15"
+                                                [ngClass]=" { 'text-white': data.badge === 'Featured' }">
+                                                <i class="mdi mdi-check-circle text-secondary font-size-18 me-2"
+                                                    [ngClass]=" { 'text-light': data.badge === 'Featured' }"></i>Unlimited
+                                                proposals
+                                            </p>
+                                            <p class="mb-3 font-size-15"
+                                                [ngClass]=" { 'text-white': data.badge === 'Featured' }">
+                                                <i class="mdi mdi-check-circle text-secondary font-size-18 me-2"
+                                                    [ngClass]=" { 'text-light': data.badge === 'Featured' }"></i>Project
+                                                tracking
+                                            </p>
+                                            <p class="mb-3 font-size-15"
+                                                [ngClass]=" { 'text-white': data.badge === 'Featured' }">
+                                                <i class="mdi mdi-check-circle text-secondary font-size-18 me-2"
+                                                    [ngClass]=" { 'text-light': data.badge === 'Featured' }"></i>Dedicated
+                                                Ac managers
+                                            </p>
+                                            <p class="mb-3 font-size-15"
+                                                [ngClass]=" { 'text-white': data.badge === 'Featured' }">
+                                                <i class="mdi mdi-check-circle text-secondary font-size-18 me-2"
+                                                    [ngClass]=" { 'text-light': data.badge === 'Featured' }"></i>Unlimited
+                                                proposals
+                                            </p>
+                                        </div>
+
+                                        <div class="mt-4 pt-2">
+                                            <a href="javascript:void(0);" class="btn btn-outline-primary w-100"
+                                                [ngClass]=" { 'btn-light': data.badge === 'Featured' }">Choose
+                                                Plan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="card-footer">
+
+                        </div> -->
+            </div>
+        </div>
+    </div>
+</div>

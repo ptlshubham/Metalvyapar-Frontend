@@ -1,0 +1,850 @@
+<div class="row" *ngIf="!openCustDetails">
+
+
+    <!-- For General Customer List -->
+    <div class="col-lg-12" *ngIf="isGeneral">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Customer List</h4>
+                <!-- <p class="card-title-desc">Here is example of datatable.
+                </p> -->
+            </div>
+            <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="tickets-table_length"><label
+                                class="d-inline-flex align-items-center">Show
+                                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                                    [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                                    <option [ngValue]="10">10</option>
+                                    <option [ngValue]="25">25</option>
+                                    <option [ngValue]="50">50</option>
+                                    <option [ngValue]="100">100</option>
+                                </select> entries</label></div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                class="d-inline-flex align-items-center">Search:
+                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap w-100 datatables"
+                    style="display: block !important;overflow: auto  !important; white-space: nowrap !important;">
+                    <thead>
+                        <tr>
+                            <th sortable="srno" (sort)="onSort($event)">SR No</th>
+                            <th sortable="Name" (sort)="onSort($event)"> Name</th>
+                            <th sortable="Location" (sort)="onSort($event)"> Location</th>
+                            <th sortable="Address" (sort)="onSort($event)"> Address</th>
+                            <th sortable="Role" (sort)="onSort($event)"> Role</th>
+                            <th sortable="Quality" (sort)="onSort($event)">Quality</th>
+                            <th sortable="AverageMonthQuantity" (sort)="onSort($event)">Average Monthly Quantity(MT)
+                            </th>
+                            <th sortable="Salutation" (sort)="onSort($event)">Salutation</th>
+                            <th sortable="FirstName" (sort)="onSort($event)">First Name</th>
+                            <th sortable="LastName" (sort)="onSort($event)">Last Name</th>
+                            <th sortable="Designation" (sort)="onSort($event)">Designation</th>
+                            <th sortable="PhoneNo" (sort)="onSort($event)">Phone Number</th>
+                            <th sortable="AlternateNo" (sort)="onSort($event)">Alternate Number</th>
+                            <th sortable="Email" (sort)="onSort($event)">Email id/User id</th>
+                            <!-- <th sortable="Password" (sort)="onSort($event)">Password</th> -->
+                            <th sortable="GSTNo" (sort)="onSort($event)">GST Number</th>
+                            <th sortable="PANNo" (sort)="onSort($event)">PAN</th>
+                            <th sortable="BankName" (sort)="onSort($event)">Bank Name</th>
+                            <th sortable="AccountName" (sort)="onSort($event)">Account Name</th>
+                            <th sortable="AccountNo" (sort)="onSort($event)">Account Number</th>
+                            <th sortable="AccountType" (sort)="onSort($event)">Account Type</th>
+                            <th sortable="IFSCCode" (sort)="onSort($event)">IFSC Code</th>
+                            <th sortable="BankBranch" (sort)="onSort($event)">Bank Branch</th>
+                            <th>Cancelled Cheque</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                        <tr>
+                            <td>
+                                <ngb-highlight [result]="table.srno | number"
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Name" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Location" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Address " [term]="service.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Role" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Quality" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AverageMonthQuantity | number "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Salutation " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.FirstName " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.LastName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Designation" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PhoneNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AlternateNo "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+
+                            <td>
+                                <ngb-highlight [result]="table.Email" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <!-- <td>
+                                <ngb-highlight [result]="table.Password" [term]="service.searchTerm"></ngb-highlight>
+                            </td> -->
+                            <td>
+                                <ngb-highlight [result]="table.GSTNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PANNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BankName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountType" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.IFSCCode" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BankBranch" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+
+
+                            <td class="text-center">
+                                <img src="https://api.metalvyapar.com{{table.CancelCheque}}"
+                                    *ngIf="table.CancelCheque != 'undefiend'" data-bs-toggle="modal"
+                                    data-bs-target=".bs-example-modal-center"
+                                    (click)="centerModal(centerDataModal,table.CancelCheque)" alt="Cancel cheque"
+                                    class="rounded avatar-lg">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View & Accept"
+                                    (click)="viewCustomerDetails(table.srno)">
+                                    <i class="fas fa-eye font-size-16 align-middle"></i>
+                                </button>
+                                <button type="button" class="btn btn-soft-info waves-effect waves-light"
+                                    style="margin-left:10px;" data-bs-toggle="tooltip" data-bs-placement="top" [disabled]="table.IsSubscribe"
+                                    title="View Membership" (click)="openMembershipDetails(smallDataModal,table.Uid)">
+                                    <i class="mdi mdi-wallet-outline font-size-16 align-middle"></i>
+                                </button>
+                                <button *ngIf="table.IsActive==1" type="button"
+                                    class="btn btn-soft-success waves-effect waves-light " style="margin-left:10px;"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Deactivate"
+                                    (click)="changeUserState(table.srno)">
+                                    <i class="fas fa-power-off font-size-16 align-middle"></i>
+                                </button>
+
+                                <button *ngIf="table.IsActive ==0" type="button"
+                                    class="btn btn-soft-danger waves-effect waves-light " style="margin-left:10px;"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Activate"
+                                    (click)="changeUserState(table.srno)">
+                                    <i class="fas fa-power-off font-size-16 align-middle"></i>
+                                </button>
+
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{service.startIndex}} to
+                            {{service.endIndex}} of {{service.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col-sm-12 col-md-5">
+                        <div class="text-md-right float-md-end pagination-rounded">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- For Buyer -->
+    <div class="col-lg-12" *ngIf="typeOfUser=='Buyer'">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Buyer List</h4>
+                <!-- <p class="card-title-desc">Here is example of datatable.
+                </p> -->
+            </div>
+            <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="tickets-table_length"><label
+                                class="d-inline-flex align-items-center">Show
+                                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                                    [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                                    <option [ngValue]="10">10</option>
+                                    <option [ngValue]="25">25</option>
+                                    <option [ngValue]="50">50</option>
+                                    <option [ngValue]="100">100</option>
+                                </select> entries</label></div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                class="d-inline-flex align-items-center">Search:
+                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap w-100 datatables"
+                    style="display: block !important;overflow: auto  !important; white-space: nowrap !important;">
+                    <thead>
+                        <tr>
+                            <th sortable="srno" (sort)="onSort($event)">SR No</th>
+                            <th sortable="Name" (sort)="onSort($event)">Buyer Name</th>
+                            <th sortable="Location" (sort)="onSort($event)">Buyer Location</th>
+                            <th sortable="Address" (sort)="onSort($event)">Buyer Address</th>
+                            <th sortable="Quality" (sort)="onSort($event)">Quality</th>
+                            <th sortable="AverageMonthQuantity" (sort)="onSort($event)">Average Monthly Quantity(MT)
+                            </th>
+                            <th sortable="Salutation" (sort)="onSort($event)">Salutation</th>
+                            <th sortable="FirstName" (sort)="onSort($event)">First Name</th>
+                            <th sortable="LastName" (sort)="onSort($event)">Last Name</th>
+                            <th sortable="Designation" (sort)="onSort($event)">Designation</th>
+                            <th sortable="PhoneNo" (sort)="onSort($event)">Phone Number</th>
+                            <th sortable="AlternateNo" (sort)="onSort($event)">Alternate Number</th>
+                            <th sortable="Email" (sort)="onSort($event)">Email id/User id</th>
+                            <!-- <th sortable="Password" (sort)="onSort($event)">Password</th> -->
+                            <th sortable="GSTNo" (sort)="onSort($event)">GST Number</th>
+                            <th sortable="PANNo" (sort)="onSort($event)">PAN</th>
+                            <th sortable="BankName" (sort)="onSort($event)">Bank Name</th>
+                            <th sortable="AccountName" (sort)="onSort($event)">Account Name</th>
+                            <th sortable="AccountNo" (sort)="onSort($event)">Account Number</th>
+                            <th sortable="AccountType" (sort)="onSort($event)">Account Type</th>
+                            <th sortable="IFSCCode" (sort)="onSort($event)">IFSC Code</th>
+                            <th sortable="BankBranch" (sort)="onSort($event)">Bank Branch</th>
+                            <th>Cancelled Cheque</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                        <tr>
+                            <td>
+                                <ngb-highlight [result]="table.srno | number"
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Name" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Location" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Address " [term]="service.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Quality" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AverageMonthQuantity | number "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Salutation " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.FirstName " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.LastName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Designation" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PhoneNo " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AlternateNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+
+                            <td>
+                                <ngb-highlight [result]="table.Email" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <!-- <td>
+                                <ngb-highlight [result]="table.Password" [term]="service.searchTerm"></ngb-highlight>
+                            </td> -->
+                            <td>
+                                <ngb-highlight [result]="table.GSTNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PANNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BankName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountNo " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountType" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.IFSCCode" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BankBranch" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+
+
+                            <td class="text-center">
+                                <img src="https://api.metalvyapar.com{{table.CancelCheque}}"
+                                    *ngIf="table.CancelCheque != 'undefiend'" data-bs-toggle="modal"
+                                    data-bs-target=".bs-example-modal-center"
+                                    (click)="centerModal(centerDataModal,table.CancelCheque)" alt="Cancel cheque"
+                                    class="rounded avatar-lg">
+                            </td>
+                            <td> <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View & Accept"
+                                    (click)="viewCustomerDetails(table.srno)"><i
+                                        class="fas fa-eye font-size-16 align-middle"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{service.startIndex}} to
+                            {{service.endIndex}} of {{service.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col-sm-12 col-md-5">
+                        <div class="text-md-right float-md-end pagination-rounded">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- For Seller -->
+    <div class="col-lg-12" *ngIf="typeOfUser=='Seller'">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Seller List</h4>
+                <!-- <p class="card-title-desc">Here is example of datatable.
+            </p> -->
+            </div>
+            <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="tickets-table_length"><label
+                                class="d-inline-flex align-items-center">Show
+                                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                                    [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                                    <option [ngValue]="10">10</option>
+                                    <option [ngValue]="25">25</option>
+                                    <option [ngValue]="50">50</option>
+                                    <option [ngValue]="100">100</option>
+                                </select> entries</label></div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                class="d-inline-flex align-items-center">Search:
+                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap w-100 datatables"
+                    style="display: block !important;overflow: auto  !important; white-space: nowrap !important;">
+                    <thead>
+                        <tr>
+                            <th sortable="srno" (sort)="onSort($event)">SR No</th>
+                            <th sortable="Name" (sort)="onSort($event)">Seller Name</th>
+                            <th sortable="Location" (sort)="onSort($event)">Seller Location</th>
+                            <th sortable="Address" (sort)="onSort($event)">Seller Address</th>
+                            <th sortable="Quality" (sort)="onSort($event)">Quality</th>
+                            <th sortable="AverageMonthQuantity" (sort)="onSort($event)">Average Monthly Quantity(MT)
+                            </th>
+                            <th sortable="Salutation" (sort)="onSort($event)">Salutation</th>
+                            <th sortable="FirstName" (sort)="onSort($event)">First Name</th>
+                            <th sortable="LastName" (sort)="onSort($event)">Last Name</th>
+                            <th sortable="Designation" (sort)="onSort($event)">Designation</th>
+                            <th sortable="PhoneNo" (sort)="onSort($event)">Phone Number</th>
+                            <th sortable="AlternateNo" (sort)="onSort($event)">Alternate Number</th>
+                            <th sortable="Email" (sort)="onSort($event)">Email id/User id</th>
+                            <!-- <th sortable="Password" (sort)="onSort($event)">Password</th> -->
+                            <th sortable="GSTNo" (sort)="onSort($event)">GST Number</th>
+                            <th sortable="PANNo" (sort)="onSort($event)">PAN</th>
+                            <th sortable="BankName" (sort)="onSort($event)">Bank Name</th>
+                            <th sortable="AccountName" (sort)="onSort($event)">Account Name</th>
+                            <th sortable="AccountNo" (sort)="onSort($event)">Account Number</th>
+                            <th sortable="AccountType" (sort)="onSort($event)">Account Type</th>
+                            <th sortable="IFSCCode" (sort)="onSort($event)">IFSC Code</th>
+                            <th sortable="BankBranch" (sort)="onSort($event)">Bank Branch</th>
+                            <th>Cancelled Cheque</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                        <tr>
+                            <td>
+                                <ngb-highlight [result]="table.srno | number"
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Name" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Location" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Address " [term]="service.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Quality" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AverageMonthQuantity | number "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Salutation " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.FirstName " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.LastName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Designation" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PhoneNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AlternateNo "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+
+                            <td>
+                                <ngb-highlight [result]="table.Email" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <!-- <td>
+                                <ngb-highlight [result]="table.Password" [term]="service.searchTerm"></ngb-highlight>
+                            </td> -->
+                            <td>
+                                <ngb-highlight [result]="table.GSTNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PANNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BankName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountType" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.IFSCCode" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BankBranch" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td class="text-center">
+                                <img src="https://api.metalvyapar.com{{table.CancelCheque}}"
+                                    *ngIf="table.CancelCheque != 'undefiend'" data-bs-toggle="modal"
+                                    data-bs-target=".bs-example-modal-center"
+                                    (click)="centerModal(centerDataModal,table.CancelCheque)" alt="CancelCheque"
+                                    class="rounded avatar-lg">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View & Accept"
+                                    (click)="viewCustomerDetails(table.srno)"><i
+                                        class="fas fa-eye font-size-16 align-middle"></i></button>
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{service.startIndex}} to
+                            {{service.endIndex}} of {{service.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col-sm-12 col-md-5">
+                        <div class="text-md-right float-md-end pagination-rounded">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- For KYC User -->
+    <div class="col-lg-12" *ngIf="typeOfUser=='pendingKyc'">
+        <div class="card">
+            <div class="card-header">
+                <!-- <h4 class="card-title">Pending KYC User List</h4> -->
+                <!-- <p class="card-title-desc">Here is example of datatable.
+            </p> -->
+            </div>
+            <div class="card-body">
+                <div class="row mb-md-2">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length" id="tickets-table_length"><label
+                                class="d-inline-flex align-items-center">Show
+                                <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                                    [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                                    <option [ngValue]="10">10</option>
+                                    <option [ngValue]="25">25</option>
+                                    <option [ngValue]="50">50</option>
+                                    <option [ngValue]="100">100</option>
+                                </select> entries</label></div>
+                    </div>
+                    <!-- Search -->
+                    <div class="col-sm-12 col-md-6">
+                        <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                                class="d-inline-flex align-items-center">Search:
+                                <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                                    aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+                    </div>
+                    <!-- End search -->
+                </div>
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap w-100 datatables"
+                    style="display: block !important;overflow: auto  !important; white-space: nowrap !important;">
+                    <thead>
+                        <tr>
+                            <th sortable="srno" (sort)="onSort($event)">SR No</th>
+                            <th sortable="Name" (sort)="onSort($event)">Seller Name</th>
+                            <th sortable="Location" (sort)="onSort($event)">Seller Location</th>
+                            <th sortable="Address" (sort)="onSort($event)">Seller Address</th>
+                            <th sortable="Quality" (sort)="onSort($event)">Quality</th>
+                            <th sortable="AverageMonthQuantity" (sort)="onSort($event)">Average Monthly Quantity(MT)
+                            </th>
+                            <th sortable="Salutation" (sort)="onSort($event)">Salutation</th>
+                            <th sortable="FirstName" (sort)="onSort($event)">First Name</th>
+                            <th sortable="LastName" (sort)="onSort($event)">Last Name</th>
+                            <th sortable="Designation" (sort)="onSort($event)">Designation</th>
+                            <th sortable="PhoneNo" (sort)="onSort($event)">Phone Number</th>
+                            <th sortable="AlternateNo" (sort)="onSort($event)">Alternate Number</th>
+                            <th sortable="Email" (sort)="onSort($event)">Email id/User id</th>
+                            <!-- <th sortable="Password" (sort)="onSort($event)">Password</th> -->
+                            <th sortable="GSTNo" (sort)="onSort($event)">GST Number</th>
+                            <th sortable="PANNo" (sort)="onSort($event)">PAN</th>
+                            <th sortable="BankName" (sort)="onSort($event)">Bank Name</th>
+                            <th sortable="AccountName" (sort)="onSort($event)">Account Name</th>
+                            <th sortable="AccountNo" (sort)="onSort($event)">Account Number</th>
+                            <th sortable="AccountType" (sort)="onSort($event)">Account Type</th>
+                            <th sortable="IFSCCode" (sort)="onSort($event)">IFSC Code</th>
+                            <th sortable="BankBranch" (sort)="onSort($event)">Bank Branch</th>
+                            <th>Cancelled Cheque</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let table of tables$ | async;let i=index">
+                        <tr>
+                            <td>
+                                <ngb-highlight [result]="table.srno | number"
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Name" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Location" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Address " [term]="service.searchTerm">
+                                </ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Quality" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AverageMonthQuantity | number "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Salutation " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.FirstName " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.LastName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.Designation" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PhoneNo " [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AlternateNo "
+                                    [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+
+                            <td>
+                                <ngb-highlight [result]="table.Email" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <!-- <td>
+                                <ngb-highlight [result]="table.Password" [term]="service.searchTerm"></ngb-highlight>
+                            </td> -->
+                            <td>
+                                <ngb-highlight [result]="table.GSTNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.PANNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BankName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountName" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountNo" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.AccountType" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.IFSCCode" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td>
+                                <ngb-highlight [result]="table.BankBranch" [term]="service.searchTerm"></ngb-highlight>
+                            </td>
+                            <td class="text-center">
+                                <img src="https://api.metalvyapar.com{{table.CancelCheque}}"
+                                    *ngIf="table.CancelCheque != 'undefiend'" data-bs-toggle="modal"
+                                    data-bs-target=".bs-example-modal-center"
+                                    (click)="centerModal(centerDataModal,table.CancelCheque)" alt="CancelCheque"
+                                    class="rounded avatar-lg">
+                            </td>
+                            <td> <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="View & Accept"
+                                    (click)="viewCustomerDetails(table.srno)"><i
+                                        class="fas fa-eye font-size-16 align-middle"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row justify-content-md-between align-items-md-center mt-2">
+                    <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                            Showing
+                            {{service.startIndex}} to
+                            {{service.endIndex}} of {{service.totalRecords}}
+                            entries
+                        </div>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="col-sm-12 col-md-5">
+                        <div class="text-md-right float-md-end pagination-rounded">
+                            <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                                [pageSize]="service.pageSize">
+                            </ngb-pagination>
+                        </div>
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="openCustDetails">
+    <div class="col-lg-12 ">
+        <div class="card bg-soft-light">
+            <div class="card-header bg-soft-light">
+                <div class="d-flex justify-content-between">
+
+                    <h4 class="card-title">Customer Details </h4>
+                    <!-- <div class="col-md-2" *ngIf="(kyc==false && customerModel.ProfileUpdation==0) || (kyc==0 && customerModel.ProfileUpdation==0)"></div> -->
+                    <div class="row">
+                        <div class="col-md-2"
+                            *ngIf="(kyc==false && customerModel.ProfileUpdation==1) || (kyc==0 && customerModel.ProfileUpdation==1)">
+                            <button type="button" class="btn btn-warning waves-effect waves-light"
+                                (click)="confirm()"><i class="mdi mdi-file-lock-outline"></i>KYC Pending</button>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-danger waves-effect waves-light"
+                                (click)="backToCustomer()">
+                                Back</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="customerModel != 'undefined'">
+                <app-customer-details [customerDetails]="customerModel"></app-customer-details>
+            </div>
+
+
+            <ng-template #MaryDataModal role="document" let-modal>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Enter Reject message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="modal.close('Close click')"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" id="message-text" [(ngModel)]="cancelMessage"
+                                [ngModelOptions]="{standalone: true}"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="modal.close('Close click')">Close</button>
+                    <button type="button" (click)="modal.close('Close click');SendCancelMsg()"
+                        class="btn btn-primary">Send message</button>
+                </div>
+            </ng-template>
+
+
+        </div>
+    </div>
+</div>
+
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Image Viewer</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <link rel="stylesheet" type="text/css"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="image-viewer-container" [class.fullscreen]="fullscreen">
+                        <div class="image-viewer">
+                            <ngx-image-viewer #imageViewer [src]="images" [(index)]="imageIndex"></ngx-image-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template><!-- /.modal -->
+<ng-template #smallDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Select Subscription</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="subForm">
+            <input type="hidden" />
+            <div class="row">
+                <div class="form-group mb-3">
+                    <div class="mb-3">
+                        <label class="form-label">Select Your Plan</label>
+                        <select class="form-select" (change)="onChangePlan($event)">
+                            <option selected value="" disabled>Select Plan</option>
+                            <option value="1 Month">1 Month</option>
+                            <option value="1 Year">1 Year</option>
+                            <option value="Life Time">Life Time</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label>Enter Amount (₹)</label>
+                    <input type="number" formControlName="price" [(ngModel)]="subscriptionModel.price"
+                        [ngClass]="{ 'is-invalid': f.price.touched && f.price.errors }" class="form-control" id="price"
+                        placeholder="Enter price (₹)">
+                    <div *ngIf="f.price.touched && f.price.errors" class="invalid-feedback">
+                        <div *ngIf="f.price.errors.required">Amount is required</div>
+                        <div *ngIf="f.price.errors.min">Only numbers allowed & Do not
+                            enter
+                            characters.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" [disabled]="subForm.invalid || selectedPlan=='' "
+                    (click)="saveSubscriptionPlan()">Submit</button>
+            </div>
+        </form>
+    </div>
+</ng-template><!-- /.modal -->

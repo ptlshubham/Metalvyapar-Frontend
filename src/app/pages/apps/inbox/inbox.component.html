@@ -1,0 +1,94 @@
+<!-- start page title -->
+<app-pagetitle title="Inbox" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<!-- end page title -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Enqiry Box</h5>
+            </div>
+            <div class="btn-toolbar p-3" role="toolbar" *ngIf="emailData.length>=0">
+                <div class="btn-group me-5 mb-2 mb-sm-0">
+                    <button type="button" class="btn btn-info waves-light waves-effect" placement="bottom"
+                        ngbTooltip="Mark as unread" (click)="multipleMarkAsUnread()"><i
+                            class="mdi mdi-email-mark-as-unread"></i></button>
+                    <button type="button" class="btn btn-warning waves-light waves-effect" placement="bottom"
+                        ngbTooltip="Mark as read" (click)="multipleMarkAsRead()"><i
+                            class="mdi mdi-email-open-outline"></i></button>
+                    <button type="button" class="btn btn-danger waves-light waves-effect" (click)="confirm()"
+                        placement="bottom" ngbTooltip="Delete"><i class="far fa-trash-alt"></i></button>
+                </div>
+
+                <!-- <div class="btn-group me-2 mb-2 mb-sm-0">
+                    <button type="button" class="btn btn-primary waves-light waves-effect"><i
+                        class="fa fa-exclamation-circle"></i></button>
+                </div>
+                <div class="btn-group me-2 mb-2 mb-sm-0" ngbDropdown>
+                    <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+                        <i class="fa fa-tag"></i> <i class="mdi mdi-chevron-down ms-1"></i>
+                    </button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <a class="dropdown-item" href="javascript:void(0);">Updates</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Social</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Team Manage</a>
+                    </div>
+                </div>
+
+                <div class="btn-group me-2 mb-2 mb-sm-0" ngbDropdown>
+                    <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+                        More <i class="mdi mdi-dots-vertical ms-2"></i>
+                    </button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <a class="dropdown-item" href="javascript:void(0);">Mark as Unread</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Mark as Important</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Add to Tasks</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Add Star</a>
+                        <a class="dropdown-item" href="javascript:void(0);">Mute</a>
+                    </div>
+                </div> -->
+            </div>
+            <ul class="message-list">
+                <li class="unread" *ngFor="let email of emailData | slice:0:20; let i = index;"
+                    [ngClass]="{ 'unread': email.isactive == true }">
+                    <div class="col-mail col-mail-1">
+                        <div class="checkbox-wrapper-mail">
+                            <input type="checkbox" id="chk-{{i}}" (change)="selectMail($event,email.id)" />
+                            <label for="chk-{{i}}"></label>
+                        </div>
+                        <a class="title" (click)="openEmail(email.id)">{{email.name}}</a>
+                        <span class="star-toggle far fa-star"></span>
+                    </div>
+                    <div class="col-mail col-mail-2">
+                        <a (click)="openEmail(email.id)" class="subject"><span
+                                class="{{email.bg_color}} badge me-2">{{email.btn}}</span>{{email.subject}}
+                        </a>
+                        <div class="date">{{email.createddate |date}}</div>
+                    </div>
+                </li>
+            </ul>
+
+        </div> <!-- card -->
+        <div class="row">
+            <div class="col-7">
+                Showing {{startIndex}} - {{endIndex}} of {{totalRecords}}
+            </div>
+            <div class="col-5">
+                <div class="btn-group float-end">
+                    <ngb-pagination class="pagination-rounded" [collectionSize]="totalRecords"
+                        (pageChange)="onPageChange($event)" [(page)]="page" [pageSize]="pageSize">
+                    </ngb-pagination>
+                    <!--Pagination-->
+                </div>
+            </div>
+        </div>
+        <div class="email-rightbar mb-3">
+
+
+        </div> <!-- end Col-9 -->
+
+    </div>
+
+</div><!-- End row -->

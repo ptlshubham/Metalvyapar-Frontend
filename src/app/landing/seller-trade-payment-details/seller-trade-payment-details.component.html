@@ -1,0 +1,156 @@
+<div class="card-body">
+    <div>
+        <form>
+            <input type="hidden" />
+            <div class="row">
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Order ID</label>
+                        <input type="text" disabled class="form-control" id="buyer" placeholder="Order ID"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.tradeId">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Buyer Name</label>
+                        <input type="text" disabled class="form-control" id="buyer" placeholder="Enter Buyer"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.CompanyName">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Buyer Location</label>
+                        <input type="text" disabled class="form-control" id="location" placeholder="Enter Buyer"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.buyerLocation">
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <label>Quality</label>
+                    <input type="text" class="form-control" id="quality" placeholder="Enter quality" disabled
+                        [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.Quality">
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Total Quantity (MT)</label>
+                        <input type="number" disabled class="form-control" id="quantity"
+                            placeholder="Enter Quantity (MT)" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="sellerModel.quantity">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Dispatch Date</label>
+                        <input type="text" disabled class="form-control" id="rate"
+                            value="{{sellerModel.dispachdate|date}}">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6" *ngIf="sellerModel.deliveryStatus=='Delivered'">
+                    <div class="form-group mb-3">
+                        <label>Delivered Date</label>
+                        <input type="text" disabled class="form-control" id="rate"
+                            value="{{sellerModel.dilveredDate|date}}">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6" *ngIf="sellerModel.deliveryStatus=='Delivered'">
+                    <div class="form-group mb-3">
+                        <label>Payment Due Date</label>
+                        <input type="text" disabled class="form-control" id="rate" value="{{sellerModel.dueDate|date}}">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Transport Vehicle Number</label>
+                        <input type="text" disabled class="form-control" id="rate" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="sellerModel.vehicleNo">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Dispatched Quantity (MT)</label>
+                        <input type="number" disabled class="form-control" id="rate"
+                            [ngModelOptions]="{standalone: true}" [(ngModel)]="sellerModel.materialQuantity">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6" *ngIf="sellerModel.paymentDate!=null">
+                    <div class="form-group mb-3">
+                        <label>Invoice Total Amount</label>
+                        <input type="text" disabled class="form-control" id="rate" [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="sellerModel.invoiceAmount">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6" *ngIf="sellerModel.paymentDate!=null">
+                    <div class="form-group mb-3">
+                        <label>Unique Transaction Reference</label>
+                        <input type="text" disabled class="form-control" id="rate" value="{{sellerModel.utrNo}}">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Payment Date</label>
+                        <input type="text" disabled class="form-control" id="rate"
+                            value="{{sellerModel.paymentDate|date}}">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Weight Slip</label> <br>
+                        <img class="img-thumbnail" alt="200x200" width="200" style="height: 200px; width: 200px;"
+                            src="https://api.metalvyapar.com{{sellerModel.weightSlip}}" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,sellerModel.weightSlip)" data-holder-rendered="true">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6">
+                    <div class="form-group mb-3">
+                        <label>Invoice Slip</label> <br>
+                        <img class="img-thumbnail" alt="200x200" style="height: 200px; width: 200px;"
+                            src="https://api.metalvyapar.com{{sellerModel.invoiceImage}}" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,sellerModel.invoiceImage)" data-holder-rendered="true">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6" *ngIf="sellerModel.deliveryStatus=='Delivered'">
+                    <div class="form-group mb-3">
+                        <label>Delivery Reciept Image</label> <br>
+                        <img class="img-thumbnail" alt="200x200" style="height: 200px; width: 200px;"
+                            src="https://api.metalvyapar.com{{sellerModel.deliveryReceipt}}" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,sellerModel.deliveryReceipt)"
+                            data-holder-rendered="true">
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-3 col-md-3 col-sm-6" *ngIf="sellerModel.paymentDate!=null">
+                    <div class="form-group mb-3">
+                        <label>Payment Slip Image</label> <br>
+                        <img class="img-thumbnail" src="https://api.metalvyapar.com{{sellerModel.paymentImage}}"
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,sellerModel.paymentImage)" alt="Delivery Reciept"
+                            style="height: 200px; width: 200px;" data-holder-rendered="true">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Image Viewer</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <link rel="stylesheet" type="text/css"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="image-viewer-container" [class.fullscreen]="fullscreen">
+                        <div class="image-viewer">
+                            <ngx-image-viewer #imageViewer [src]="images" [(index)]="imageIndex"></ngx-image-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template><!-- /.modal -->

@@ -1,0 +1,262 @@
+<header id="page-topbar">
+    <div class="navbar-header">
+        <div class="d-flex">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <a routerLink="/" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="assets/images/MV.png" alt="" height="19">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="assets/images/MV.png" alt="" height="19"> <span class="logo-txt"
+                            style="color: #162149;">Metal Vyapar</span>
+                    </span>
+                </a>
+
+                <a routerLink="/" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="assets/images/MV.png" alt="" height="19">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="assets/images/MV.png" alt="" height="19"> <span class="logo-txt"
+                            style="color: #162149;">Metal Vyapar</span>
+                    </span>
+                </a>
+            </div>
+
+            <button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn"
+                (click)="toggleMobileMenu($event)">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
+
+            <!-- App Search-->
+            <!-- <form class="app-search d-none d-lg-block">
+                <div class="position-relative">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <button class="btn btn-primary" type="button"><i class="bx bx-search-alt align-middle"></i></button>
+                </div>
+            </form> -->
+        </div>
+
+        <div class="d-flex">
+
+            <div class="dropdown d-inline-block d-lg-none ms-2" ngbDropdown>
+                <button type="button" class="btn header-item" id="page-header-search-dropdown" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                    <i-feather name="search" class="icon-lg"></i-feather>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                    aria-labelledby="page-header-search-dropdown" ngbDropdownMenu>
+
+                    <form class="p-3">
+                        <div class="form-group m-0">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search ..."
+                                    aria-label="Search Result">
+
+                                <button class="btn btn-primary" type="submit"><i class="mdi mdi-magnify"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- <div class="dropdown d-none d-sm-inline-block">
+                <button type="button" class="btn header-item" id="mode-setting-btn">
+                    <ng-container *ngIf="layoutMode == 'light'">
+                        <i-feather name="moon" class="icon-lg" (click)="changeMode('dark')"></i-feather>
+                    </ng-container>
+                    <ng-container *ngIf="layoutMode == 'dark'">
+                        <i-feather name="sun" class="icon-lg" (click)="changeMode('light')"></i-feather>
+                    </ng-container>
+                </button>
+            </div> -->
+
+            <div class="dropdown d-inline-block" ngbDropdown *ngIf="role=='MainAdmin'">
+                <button type="button" class="btn header-item noti-icon position-relative"
+                    id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" ngbDropdownToggle>
+                    <i-feather name="bell" class="icon-lg"></i-feather>
+                    <span class="badge bg-danger rounded-pill">{{unread.length}}</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                    aria-labelledby="page-header-notifications-dropdown" ngbDropdownMenu>
+                    <div class="p-3">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="m-0">Notifications</h6>
+                            </div>
+                            <div class="col-auto">
+                                <a class="small text-reset text-decoration-underline" routerLink="/apps/inbox">View
+                                    All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <ngx-simplebar style="max-height: 230px;">
+                        <a (click)="openEmail(c.id)" class="text-reset notification-item" *ngFor="let c of unread">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 me-3">
+                                    <img src="assets/images/users/User.png" class="rounded-circle avatar-sm"
+                                        alt="user-pic">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1">{{c.name}}</h6>
+                                    <div class="font-size-13 text-muted">
+                                        <p class="mb-1">{{c.subject}}</p>
+                                        <p class="mb-0"><i class="mdi mdi-calendar-month-outline"></i>
+                                            <span>{{c.createddate|date}}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </ngx-simplebar>
+                    <div class="p-2 border-top d-grid">
+                        <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
+                            <i class="mdi mdi-arrow-right-circle me-1"></i> <span>View More..</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown d-inline-block" ngbDropdown *ngIf="role=='MainAdmin'">
+                <button type="button" class="btn header-item bg-soft-light border-start border-end"
+                    id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    ngbDropdownToggle>
+                    <img class="rounded-circle header-profile-user" src="assets/images/users/User.png"
+                        alt="Header Avatar">
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium">{{userName}}</span>
+                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                    <!-- item-->
+                    <a class="dropdown-item" *ngIf="role=='MainAdmin'" (click)="openPasswordModal(centerDataModal)"><i
+                            class="fa fa-key font-size-16 align-middle me-1"></i>Change Password</a>
+                    <a class="dropdown-item" routerLink="/"><i
+                            class="mdi mdi-view-dashboard-outline font-size-16 align-middle me-1"></i>My Dashboard</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript: void(0);" (click)="logout()"><i
+                            class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i> <span
+                            class="align-middle" key="t-logout">{{ 'MENUITEMS.AUTHENTICATION.LIST.LOGOUT' |
+                            translate}}</span></a>
+                </div>
+            </div>
+            <!-- <div class="dropdown d-inline-block d-flex justify-content-end gap-2 mt-3 pe-2" ngbDropdown *ngIf="role=='Seller'">
+                <div>
+                    <button type="button" [ngClass]="remainingDays > 5 ? 'btn btn-warning' : 'btn btn-danger'" ><i class="me-1"></i>
+                        Remaining Days : {{remainingDays}} </button>
+                </div>
+            </div> -->
+            <div class="dropdown d-inline-block" ngbDropdown *ngIf="role=='Seller'">
+                <button type="button" class="btn header-item bg-soft-light border-start border-end"
+                    id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    ngbDropdownToggle>
+                    <img class="rounded-circle header-profile-user" src="assets/images/users/User.png"
+                        alt="Header Avatar">
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium">{{userName}}</span>
+                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                    <!-- item-->
+                    <a class="dropdown-item" routerLink="/apps/profile"><i
+                            class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
+                    <a class="dropdown-item" routerLink="/landing/user-home"><i
+                            class="mdi mdi-view-dashboard-outline font-size-16 align-middle me-1"></i>My Dashboard</a>
+                    <a class="dropdown-item" href="javascript: void(0);" (click)="logout()"><i
+                            class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i> <span
+                            class="align-middle" key="t-logout">Logout</span></a>
+                </div>
+            </div>
+            <div class="dropdown d-inline-block" ngbDropdown *ngIf="role=='Buyer'">
+                <button type="button" class="btn header-item bg-soft-light border-start border-end"
+                    id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    ngbDropdownToggle>
+                    <img class="rounded-circle header-profile-user" src="assets/images/users/User.png"
+                        alt="Header Avatar">
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium">{{userName}}</span>
+                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                    <!-- item-->
+                    <a class="dropdown-item" routerLink="/apps/profile"><i
+                            class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
+                    <a class="dropdown-item" routerLink="/landing/user-home"><i
+                            class="mdi mdi-view-dashboard-outline font-size-16 align-middle me-1"></i>My Dashboard</a>
+                    <a class="dropdown-item" href="javascript: void(0);" (click)="logout()"><i
+                            class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i> <span
+                            class="align-middle" key="t-logout">Logout</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Password Change</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <form [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+                    <input type="hidden" />
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="form-group mb-3">
+                                <label>Current password</label>
+                                <input type="password" (focusout)="verifyOldPassword()" formControlName="currentpwd"
+                                    [ngClass]="{ 'is-invalid': passwordSubmit && p.currentpwd.errors }"
+                                    class="form-control" id="currentpwd" placeholder="Enter password">
+                                <div *ngIf="passwordSubmit && p.currentpwd.errors" class="invalid-feedback">
+                                    <div *ngIf="p.currentpwd.errors.required">
+                                        Current Password
+                                        is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="form-group mb-3">
+                                <label>New password</label>
+                                <input type="password" formControlName="password"
+                                    [ngClass]="{ 'is-invalid': passwordSubmit && p.password.errors }"
+                                    class="form-control" id="password" placeholder="Enter password">
+                                <div *ngIf="passwordSubmit && p.password.errors" class="invalid-feedback">
+                                    <div *ngIf="p.password.errors.required">
+                                        Password
+                                        is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12">
+                            <div class="form-group mb-3">
+                                <label>Retype password</label>
+                                <input type="password" formControlName="confirmpwd" placeholder="Retype Password"
+                                    [ngClass]="{'is-invalid': passwordSubmit && p.confirmpwd.errors}"
+                                    class="form-control" />
+                                <div *ngIf="passwordSubmit && p.confirmpwd.errors" class="invalid-feedback">
+                                    <span *ngIf="p.confirmpwd.errors.required">This
+                                        value is required.</span>
+                                    <span *ngIf="p.confirmpwd.errors.mustMatch">New
+                                        password & Retype password
+                                        value should not the
+                                        same.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="d-flex align-items-center">
+                                <button type="submit" class="btn btn-primary"
+                                    [disabled]="passwordForm.invalid">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template><!-- /.modal -->

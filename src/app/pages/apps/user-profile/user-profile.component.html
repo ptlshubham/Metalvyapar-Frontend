@@ -1,0 +1,824 @@
+<!-- start page title -->
+<app-pagetitle title="Profile" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<!-- end page title -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-11 col-lg-11">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm order-2 order-sm-1">
+                            <div class="d-flex align-items-start mt-3 mt-sm-0">
+                                <div class="flex-shrink-0">
+                                    <div class="avatar-xl me-3">
+                                        <img src="assets/images/users/userv.png" alt=""
+                                            class="img-fluid rounded-circle d-block">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div>
+                                        <h5 class="font-size-16 mb-1">{{userDetails.CompanyName}} </h5>
+                                        <p class="text-muted font-size-13">{{userDetails.street}}</p>
+
+                                        <div
+                                            class="d-flex flex-wrap align-items-start gap-2 gap-lg-3 text-muted font-size-13">
+                                            <div>
+                                                <div *ngIf="role=='Seller'">
+                                                    <i
+                                                        class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Seller
+                                                </div>
+                                                <div *ngIf="role=='Buyer'">
+                                                    <i
+                                                        class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Buyer
+                                                </div>
+                                                <div *ngIf="role=='admin'">
+                                                    <i
+                                                        class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Admin
+                                                </div>
+                                            </div>
+                                            <div><i
+                                                    class="mdi mdi-circle-medium me-1 text-success align-middle"></i>{{userDetails.Email}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-auto order-1 order-sm-2" *ngIf="role=='Seller'">
+                            <div class="d-flex align-items-start justify-content-end gap-2">
+                                <div>
+                                    <button type="button"
+                                        [ngClass]="remainingDays > 5 ? 'btn btn-warning' : 'btn btn-danger'"><i
+                                            class="me-1"></i>
+                                        Remaining Days : {{remainingDays}} </button>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <ul ngbNav #nav="ngbNav" [activeId]="2"
+                        class="nav nav-tabs-custom card-header-tabs border-top mt-4">
+
+
+                        <li [ngbNavItem]="2" class="nav-item">
+                            <a ngbNavLink class="nav-link px-3">
+                                About
+                            </a>
+                            <ng-template ngbNavContent>
+                                <div class="tab-pane active" id="about" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title mb-0">About</h4>
+                                        </div>
+                                        <div class="card-body" *ngIf="userDetails != 'undefined'">
+                                            <aw-wizard [navBarLayout]="'large-empty-symbols'">
+                                                <aw-wizard-step stepTitle="Personal Details">
+                                                    <ng-template awWizardStepSymbol>
+                                                        <i class=" bx bxs-user"></i>
+                                                    </ng-template>
+                                                    <div class="row">
+                                                        <form [formGroup]="validationForm">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Salutation</label>
+                                                                        <select required
+                                                                            class="form-control form-select" required
+                                                                            formControlName="select"
+                                                                            [(ngModel)]="userDetails.Salutation"
+                                                                            [ngClass]="{'is-invalid': submitted && f.select.errors}">
+                                                                            <option selected>Select Salutation</option>
+                                                                            <option value="Mr">Mr.</option>
+                                                                            <option value="Mrs">Mrs.</option>
+                                                                            <option value="Ms">Ms.</option>
+                                                                        </select>
+                                                                        <div *ngIf=" f.select.errors"
+                                                                            class="invalid-feedback">
+                                                                            <span *ngIf="f.select.errors.required">This
+                                                                                field is
+                                                                                required.</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">First
+                                                                            Name</label>
+                                                                        <input type="text" formControlName="fname"
+                                                                            class="form-control" id="fname"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.fname.errors }"
+                                                                            placeholder="Enter First Name"
+                                                                            [(ngModel)]="userDetails.FirstName">
+                                                                        <div *ngIf="submitted && f.fname.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.fname.errors.required">First
+                                                                                name is required
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Last
+                                                                            Name</label>
+                                                                        <input type="text" formControlName="lname"
+                                                                            class="form-control" id="lname"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.lname.errors }"
+                                                                            placeholder="Enter Last Name"
+                                                                            [(ngModel)]="userDetails.LastName">
+                                                                        <div *ngIf="submitted && f.lname.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.lname.errors.required">Last
+                                                                                name is required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Phone Number</label>
+                                                                        <input type="number" formControlName="contact"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.contact.errors }"
+                                                                            class="form-control" id="contact"
+                                                                            placeholder="Enter Phone Number"
+                                                                            [(ngModel)]="userDetails.Phone">
+                                                                        <div *ngIf="submitted && f.contact.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.contact.errors.required">Phone
+                                                                                number is required.
+                                                                            </div>
+                                                                            <div *ngIf="f.contact.errors.min">Only
+                                                                                numbers allowed & Do not
+                                                                                enter
+                                                                                characters.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Email Address</label>
+                                                                        <input type="email" formControlName="email"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                                                                            class="form-control" id="useremail"
+                                                                            placeholder="Enter email"
+                                                                            [(ngModel)]="userDetails.Email">
+                                                                        <div *ngIf="submitted && f.email.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.email.errors.required">Email
+                                                                                is required</div>
+                                                                            <div *ngIf="f.email.errors.email">Email must
+                                                                                be a valid email
+                                                                                address</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Register As</label>
+                                                                        <input type="text" required class="form-control"
+                                                                            formControlName="regAs"
+                                                                            [ngClass]="{'is-invalid': submitted && f.regAs.errors}"
+                                                                            [(ngModel)]="userDetails.Role">
+
+                                                                        <div *ngIf="submitted && f.regAs.errors"
+                                                                            class="invalid-feedback">
+                                                                            <span *ngIf="f.regAs.errors.required">This
+                                                                                field is
+                                                                                required.</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <ul class="list-inline wizard mb-0">
+                                                                    <li class="next list-inline-item float-end"><button
+                                                                            type="submit" class="btn btn-primary"
+                                                                            awNextStep>Next</button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                </aw-wizard-step>
+
+                                                <aw-wizard-step stepTitle="Company Details">
+                                                    <ng-template awWizardStepSymbol>
+                                                        <i class="bx bx-buildings"></i>
+                                                    </ng-template>
+                                                    <div class="row">
+                                                        <form [formGroup]="validationForm">
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-pancard-input1"
+                                                                            class="form-label">Company
+                                                                            Name</label>
+                                                                        <input type="text" formControlName="companyname"
+                                                                            class="form-control" id="companyname"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.companyname.errors }"
+                                                                            placeholder="Enter Company Name"
+                                                                            [(ngModel)]="userDetails.CompanyName">
+                                                                        <div *ngIf="submitted && f.companyname.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.companyname.errors.required">
+                                                                                Company name is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-vatno-input1"
+                                                                            class="form-label">Designation</label>
+                                                                        <input type="text" formControlName="designation"
+                                                                            class="form-control" id="designation"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.designation.errors }"
+                                                                            placeholder="Enter designation"
+                                                                            [(ngModel)]="userDetails.Designation">
+                                                                        <div *ngIf="submitted && f.designation.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.designation.errors.required">
+                                                                                Designation is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-cstno-input1"
+                                                                            class="form-label">GST
+                                                                            Number</label>
+                                                                        <input type="text" formControlName="gstno"
+                                                                            class="form-control" id="gstno"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.gstno.errors }"
+                                                                            placeholder="Enter GST Number"
+                                                                            [(ngModel)]="userDetails.GSTNo">
+                                                                        <div *ngIf="submitted && f.gstno.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.gstno.errors.required">GST
+                                                                                Number is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-cstno-input1"
+                                                                            class="form-label">PAN</label>
+                                                                        <input type="text" formControlName="pancard"
+                                                                            class="form-control" id="pancard"
+                                                                            [(ngModel)]="userDetails.PANCard"
+                                                                            [ngClass]="{ 'is-invalid': f.pancard.touched && f.pancard.errors }"
+                                                                            placeholder="Enter PAN">
+                                                                        <div *ngIf="f.pancard.touched || f.pancard.invalid || f.pancard.pristine"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.pancard.errors?.required">PAN
+                                                                                is required.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-phoneno-input1"
+                                                                            class="form-label">Work
+                                                                            Phone</label>
+                                                                        <input type="number" formControlName="workphone"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.workphone.errors }"
+                                                                            class="form-control" id="workphone"
+                                                                            placeholder="Enter Workphone Number"
+                                                                            [(ngModel)]="userDetails.CompanyContact">
+                                                                        <div *ngIf="submitted && f.workphone.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.workphone.errors.required">
+                                                                                Workphone is required.
+                                                                            </div>
+                                                                            <div *ngIf="f.workphone.errors.min">Only
+                                                                                numbers allowed & Do
+                                                                                not
+                                                                                enter
+                                                                                characters.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Material
+                                                                            Quality</label>
+                                                                        <ng-select [items]="Default" [multiple]="true"
+                                                                            bindLabel="name"
+                                                                            [(ngModel)]="multiDefaultOption"
+                                                                            formControlName="multiDefaultOption">
+                                                                        </ng-select>
+                                                                        <div *ngIf="submitted && f.selectMaterial.errors"
+                                                                            class="invalid-feedback">
+                                                                            <span
+                                                                                *ngIf="f.selectMaterial.errors.required">This
+                                                                                field is
+                                                                                required.</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-phoneno-input1"
+                                                                            class="form-label">Average
+                                                                            Monthly Trade (MT)</label>
+                                                                        <input type="number"
+                                                                            formControlName="avg_mnth_trade"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.avg_mnth_trade.errors }"
+                                                                            class="form-control" id="avg_mnth_trade"
+                                                                            [(ngModel)]="userDetails.AvgMonthTrade"
+                                                                            placeholder="Enter Average Monthly Trade (Approx)">
+                                                                        <div *ngIf="submitted && f.avg_mnth_trade.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div
+                                                                                *ngIf="f.avg_mnth_trade.errors.required">
+                                                                                Average monthly
+                                                                                trade is required.
+                                                                            </div>
+                                                                            <div *ngIf="f.avg_mnth_trade.errors.min">
+                                                                                Only numbers allowed &
+                                                                                Do
+                                                                                not
+                                                                                enter
+                                                                                characters.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-address-input"
+                                                                            class="form-label">Address</label>
+                                                                        <textarea id="basicpill-address-input"
+                                                                            class="form-control" rows="2" id="address"
+                                                                            formControlName="address"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                                                                            placeholder="Enter Address (Area and Street)"
+                                                                            [(ngModel)]="userDetails.street"></textarea>
+                                                                        <div *ngIf="submitted && f.address.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.address.errors.required">
+                                                                                Address is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-address-input"
+                                                                            class="form-label">Address</label>
+                                                                        <textarea id="basicpill-address-input" class="form-control" rows="2"
+                                                                            id="address" formControlName="address"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                                                                            placeholder="Address (Area and Street)"></textarea>
+                                                                        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+                                                                            <div *ngIf="f.address.errors.required">Address is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-vatno-input1"
+                                                                            class="form-label">Enter
+                                                                            City/District/Town</label>
+                                                                        <input type="text" formControlName="city"
+                                                                            class="form-control" id="city"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+                                                                            placeholder="City/District/Town"
+                                                                            [(ngModel)]="userDetails.city">
+                                                                        <div *ngIf="submitted && f.city.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.city.errors.required">
+                                                                                City/District/Town is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-phoneno-input1"
+                                                                            class="form-label">Enter
+                                                                            Pincode</label>
+                                                                        <input type="number" formControlName="pincode"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }"
+                                                                            class="form-control" id="pincode"
+                                                                            placeholder="Enter Pincode Number"
+                                                                            [(ngModel)]="userDetails.pincode">
+                                                                        <div *ngIf="submitted && f.pincode.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.pincode.errors.required">
+                                                                                Pincode is required.
+                                                                            </div>
+                                                                            <div *ngIf="f.pincode.errors.min">Only
+                                                                                numbers allowed & Do
+                                                                                not
+                                                                                enter
+                                                                                characters.
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="form-group mb-3">
+                                                                        <label for="Selct State"
+                                                                            class="form-label">Select
+                                                                            State</label>
+                                                                        <select required class="form-select"
+                                                                            formControlName="selectState"
+                                                                            [(ngModel)]="userDetails.state"
+                                                                            [ngClass]="{'is-invalid': submitted && f.selectState.errors}">
+                                                                            <option>Select State</option>
+                                                                            <option *ngFor="let c of stateData"
+                                                                                value="{{c.name}}">{{c.name}}
+                                                                            </option>
+                                                                        </select>
+                                                                        <div *ngIf="submitted && f.selectState.errors"
+                                                                            class="invalid-feedback">
+                                                                            <span
+                                                                                *ngIf="f.selectState.errors.required">This
+                                                                                field is
+                                                                                required.</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-vatno-input1"
+                                                                            class="form-label">Enter
+                                                                            Landmark</label>
+                                                                        <input type="text" formControlName="landmark"
+                                                                            class="form-control" id="landmark"
+                                                                            placeholder="Landmark (Optional)"
+                                                                            [(ngModel)]="userDetails.landmark">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <ul class="list-inline wizard mb-0">
+                                                                <li class="previous list-inline-item"><button
+                                                                        class="btn btn-primary"
+                                                                        awPreviousStep>Previous</button>
+                                                                </li>
+                                                                <li class="next list-inline-item float-end"><button
+                                                                        class="btn btn-primary" awNextStep>Next</button>
+                                                                </li>
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+                                                </aw-wizard-step>
+                                                <aw-wizard-step stepTitle="Bank Details">
+                                                    <ng-template awWizardStepSymbol>
+                                                        <i class="bx bxs-bank"></i>
+                                                    </ng-template>
+                                                    <div class="row">
+                                                        <form [formGroup]="validationForm">
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Account Type</label>
+                                                                        <select required
+                                                                            class="form-control form-select"
+                                                                            formControlName="selectAcc"
+                                                                            [(ngModel)]="userDetails.AccType"
+                                                                            [ngClass]="{'is-invalid': f.selectAcc.touched && f.selectAcc.errors}">
+                                                                            <option selected>Select Account Type
+                                                                            </option>
+                                                                            <!-- <option value="saving">Saving Account</option> -->
+                                                                            <option value="current" selected>Current
+                                                                                Account</option>
+                                                                        </select>
+                                                                        <div *ngIf="f.selectAcc.touched && f.selectAcc.errors"
+                                                                            class="invalid-feedback">
+                                                                            <span
+                                                                                *ngIf="f.selectAcc.errors.required">This
+                                                                                field is
+                                                                                required.</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-pancard-input1"
+                                                                            class="form-label">Account
+                                                                            Holder's
+                                                                            Name</label>
+                                                                        <input type="text" formControlName="acHolder"
+                                                                            class="form-control" id="acHolder"
+                                                                            [(ngModel)]="userDetails.AccHolderName"
+                                                                            [ngClass]="{ 'is-invalid': f.acHolder.touched && f.acHolder.errors }"
+                                                                            placeholder="Enter A/C Holder's Name">
+                                                                        <div *ngIf="f.acHolder.touched && f.acHolder.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.acHolder.errors.required">
+                                                                                Account holder name is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-vatno-input1"
+                                                                            class="form-label">Bank Name
+                                                                        </label>
+                                                                        <input type="text" formControlName="bankName"
+                                                                            class="form-control" id="bankName"
+                                                                            [(ngModel)]="userDetails.BankName"
+                                                                            [ngClass]="{ 'is-invalid': f.bankName.touched && f.bankName.errors }"
+                                                                            placeholder="Enter Bankname">
+                                                                        <div *ngIf="f.bankName.touched && f.bankName.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.bankName.errors.required">Bank
+                                                                                name is required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-cstno-input1"
+                                                                            class="form-label">Bank A/c
+                                                                            No</label>
+                                                                        <input type="number" formControlName="bankACNo"
+                                                                            class="form-control" id="bankACNo"
+                                                                            [(ngModel)]="userDetails.BankAccNo"
+                                                                            [ngClass]="{ 'is-invalid': f.bankACNo.touched && f.bankACNo.errors }"
+                                                                            placeholder="Enter Account Number">
+                                                                        <div *ngIf="f.bankACNo.touched && f.bankACNo.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.bankACNo.errors.required">Bank
+                                                                                Account Number is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-phoneno-input1"
+                                                                            class="form-label">Branch
+                                                                            Name</label>
+                                                                        <input type="text" formControlName="branchName"
+                                                                            class="form-control" id="branchName"
+                                                                            [(ngModel)]="userDetails.BranchName"
+                                                                            [ngClass]="{ 'is-invalid': f.branchName.touched && f.branchName.errors }"
+                                                                            placeholder="Enter Branch Name">
+                                                                        <div *ngIf="f.branchName.touched && f.branchName.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.branchName.errors.required">
+                                                                                Branch name is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-phoneno-input1"
+                                                                            class="form-label">IFSC</label>
+                                                                        <input type="text" formControlName="ISFC"
+                                                                            class="form-control" id="ISFC"
+                                                                            [(ngModel)]="userDetails.ISFCCode"
+                                                                            [ngClass]="{ 'is-invalid': f.ISFC.touched && f.ISFC.errors }"
+                                                                            placeholder="Enter ISFC Code">
+                                                                        <div *ngIf="f.ISFC.touched && f.ISFC.errors"
+                                                                            class="invalid-feedback">
+                                                                            <div *ngIf="f.ISFC.errors.required">ISFC
+                                                                                Code is required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label for="basicpill-phoneno-input1"
+                                                                            class="form-label">Upload Cancelled
+                                                                            Cheque</label>
+                                                                        <img class="img-thumbnail" alt="200x200"
+                                                                            style="height: 200px; width: 200px;"
+                                                                            src="assets/images/small/img-3.jpg"
+                                                                            *ngIf="userDetails.CancelCheque ==null"
+                                                                            data-holder-rendered="true">
+                                                                        <img class="img-thumbnail" alt="200x200"
+                                                                            style="height: 200px; width: 200px;"
+                                                                            *ngIf="userDetails.CancelCheque !=null"
+                                                                            src="https://api.metalvyapar.com{{userDetails.CancelCheque}}"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target=".bs-example-modal-center"
+                                                                            (click)="centerModal(centerDataModal,userDetails.CancelCheque)"
+                                                                            data-holder-rendered="true">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <ul class="list-inline wizard mb-0">
+                                                                <li class="previous list-inline-item"><button
+                                                                        class="btn btn-primary"
+                                                                        awPreviousStep>Previous</button>
+                                                                </li>
+                                                                <!-- <li class="next list-inline-item float-end" type="submit"><button
+                                                                        class="btn btn-primary" awNextStep (click)="onSubmit()" [disabled]="validationForm.invalid"> Submit</button>
+                                                                </li> -->
+                                                            </ul>
+                                                        </form>
+                                                    </div>
+
+                                                </aw-wizard-step>
+                                            </aw-wizard>
+                                        </div>
+                                        <!-- end card body -->
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                            </ng-template>
+                        </li>
+
+                        <li [ngbNavItem]="3" class="nav-item">
+                            <a ngbNavLink class="nav-link px-3">
+                                Setting
+                            </a>
+                            <ng-template ngbNavContent>
+                                <div class="tab-pane" id="privacy" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0">Privacy</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm order-2 order-sm-1">
+                                                    <div class="d-flex align-items-start mt-3 mt-sm-0">
+                                                        <div class="flex-shrink-0">
+                                                            <i class="bx bxs-key c-icon"> </i>
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <div>
+                                                                <h5 class="font-size-16 mb-1">Change password</h5>
+                                                                <p class="text-muted font-size-13">It's a good idea
+                                                                    to use a strong password that you're not using
+                                                                    elsewhere
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-auto order-1 order-sm-2">
+                                                    <div class="d-flex align-items-start justify-content-end gap-2">
+                                                        <div *ngIf="!isPwdOpen">
+                                                            <button type="button" class="btn btn-soft-light"
+                                                                (click)="openPasswordEdit()"><i
+                                                                    class="fas fa-pencil-alt me-1"></i>
+                                                                Edit</button>
+                                                        </div>
+                                                        <div *ngIf="isPwdOpen">
+                                                            <button type="button" class="btn btn-soft-light"
+                                                                (click)="closePasswordEdit()"><i
+                                                                    class="fas fa-times me-1"></i>
+                                                                Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="isPwdOpen">
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <form [formGroup]="passwordForm"
+                                                                (ngSubmit)="onPasswordSubmit()">
+                                                                <input type="hidden" />
+                                                                <div class="row mt-5">
+                                                                    <div class="col-xl-4 col-md-6">
+                                                                        <div class="form-group mb-3">
+                                                                            <label>Current password</label>
+                                                                            <input type="password"
+                                                                                (focusout)="verifyOldPassword()"
+                                                                                formControlName="currentpwd"
+                                                                                [ngClass]="{ 'is-invalid': passwordSubmit && p.currentpwd.errors }"
+                                                                                class="form-control" id="currentpwd"
+                                                                                placeholder="Enter password">
+                                                                            <div *ngIf="passwordSubmit && p.currentpwd.errors"
+                                                                                class="invalid-feedback">
+                                                                                <div
+                                                                                    *ngIf="p.currentpwd.errors.required">
+                                                                                    Current Password
+                                                                                    is required</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-4 col-md-6">
+                                                                        <div class="form-group mb-3">
+                                                                            <label>New password</label>
+                                                                            <input type="password"
+                                                                                formControlName="password"
+                                                                                [ngClass]="{ 'is-invalid': passwordSubmit && p.password.errors }"
+                                                                                class="form-control" id="password"
+                                                                                placeholder="Enter password">
+                                                                            <div *ngIf="passwordSubmit && p.password.errors"
+                                                                                class="invalid-feedback">
+                                                                                <div *ngIf="p.password.errors.required">
+                                                                                    Password
+                                                                                    is required</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xl-4 col-md-6">
+                                                                        <div class="form-group mb-3">
+                                                                            <label>Retype password</label>
+                                                                            <input type="password"
+                                                                                formControlName="confirmpwd"
+                                                                                placeholder="Retype Password"
+                                                                                [ngClass]="{'is-invalid': passwordSubmit && p.confirmpwd.errors}"
+                                                                                class="form-control" />
+                                                                            <div *ngIf="passwordSubmit && p.confirmpwd.errors"
+                                                                                class="invalid-feedback">
+                                                                                <span
+                                                                                    *ngIf="p.confirmpwd.errors.required">This
+                                                                                    value is required.</span>
+                                                                                <span
+                                                                                    *ngIf="p.confirmpwd.errors.mustMatch">New
+                                                                                    password & Retype password
+                                                                                    value should not the
+                                                                                    same.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group">
+                                                                        <button type="submit" class="btn btn-primary"
+                                                                            [disabled]="passwordForm.invalid">Update</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end card body -->
+                                    </div>
+                                    <!-- end card -->
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
+
+            <div [ngbNavOutlet]="nav" class=""></div>
+
+            <!-- end tab content -->
+        </div>
+        <!-- end col -->
+
+
+    </div>
+</div>
+
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Image Viewer</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <link rel="stylesheet" type="text/css"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="image-viewer-container" [class.fullscreen]="fullscreen">
+                        <div class="image-viewer">
+                            <ngx-image-viewer #imageViewer [src]="images" [(index)]="imageIndex"></ngx-image-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template><!-- /.modal -->

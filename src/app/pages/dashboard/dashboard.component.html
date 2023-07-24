@@ -1,0 +1,345 @@
+<!-- start page title -->
+<app-pagetitle title="Dashboard" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<!-- end page title -->
+<div class="row">
+
+    <!-- <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openMasterTradeList(masterTradeList)">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Master Table</span>
+                        <h4 class="mb-3" *ngIf="masterTradeList.length>0">
+                            <span [CountTo]="masterTradeList.length" class="counter-value" [from]="0"
+                                [duration]="1"></span>
+                        </h4>
+                        <h4 class="mb-3" *ngIf="masterTradeList.length==0">
+                            <span class="counter-value">0</span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/newtrade.png" alt="newtrade" class="rounded avatar-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openOrderInitiative(initiatedOrder)">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Order Initiated</span>
+                        <h4 class="mb-3">
+                            <span [CountTo]="initiatedOrder.length" *ngIf="initiatedOrder.length>0"
+                                class="counter-value" [from]="0" [duration]="1"></span>
+                            <!-- <span *ngIf="initiatedOrder.length<=0"
+                                >0</span> -->
+                        </h4>
+                        <h4 class="mb-3" *ngIf="initiatedOrder.length==0">
+                            <span class="counter-value">0</span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/newtrade.png" alt="newtrade" class="rounded avatar-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openApprovedTradeList(responseApproved)">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Active Trades</span>
+                        <h4 class="mb-3" *ngIf="responseApproved.length>0">
+                            <span [CountTo]="responseApproved.length" class="counter-value" [from]="0"
+                                [duration]="1"></span>
+                        </h4>
+                        <h4 class="mb-3" *ngIf="responseApproved.length==0">
+                            <span class="counter-value">0</span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/approved.png" alt="approved" class="rounded avatar-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openCompletedTradeList(completedTrades)">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Completed Trades</span>
+                        <h4 class="mb-3" *ngIf="completedTrades.length>0">
+                            <span [CountTo]="completedTrades.length" class="counter-value" [from]="0"
+                                [duration]="1"></span>
+                        </h4>
+                        <h4 class="mb-3" *ngIf="completedTrades.length==0">
+                            <span class="counter-value">0</span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/cart.png" alt="cart" class="rounded avatar-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openRejectedTradeList(rejectedTrade)">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Rejected Trades</span>
+                        <h4 class="mb-3" *ngIf="rejectedTrade.length>0">
+                            <span [CountTo]="rejectedTrade.length" class="counter-value" [from]="0"
+                                [duration]="1"></span>
+                        </h4>
+                        <h4 class="mb-3" *ngIf="rejectedTrade.length==0">
+                            <span class="counter-value">0</span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/rejected.png" alt="rejected" class="rounded avatar-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="card card-h-100" (click)="openCommisionSummary()">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Total Commission Amount</span>
+                        <h4 class="mb-3">
+                            <span [CountTo]="totalCommision" class="counter-value" [from]="0" [duration]="1"></span> ₹
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/payment.png" alt="newtrade" class="rounded avatar-lg">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openUserList('pendingKyc')">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Total Pending KYC</span>
+                        <h4 class="mb-3" *ngIf="pendingKycUserList.length>0">
+                            <span [CountTo]="pendingKycUserList.length" class="counter-value" [from]="0"
+                                [duration]="1"></span>
+                        </h4>
+                        <h4 class="mb-3" *ngIf="pendingKycUserList.length==0">
+                            <span class="counter-value">0</span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/pending-kyc.png" alt="users" class="rounded avatar-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openUserList('Buyer')">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Total Buyer</span>
+                        <h4 class="mb-3">
+                            <span [CountTo]="buyerList.length" class="counter-value" [from]="0" [duration]="1"></span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/users.png" alt="users" class="rounded avatar-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openUserList('Seller')">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Total Seller</span>
+                        <h4 class="mb-3">
+                            <span [CountTo]="sellerList.length" class="counter-value" [from]="0" [duration]="1"></span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/users.png" alt="users" class="rounded avatar-lg">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12" (click)="openSubscriptionList()">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-8">
+                        <span class="text-muted mb-3 lh-1 d-block ">Total Subscripition</span>
+                        <h4 class="mb-3" *ngIf="totalSubscription.length>0">
+                            <span [CountTo]="totalSubscription.length" class="counter-value" [from]="0"
+                                [duration]="1"></span>
+                        </h4>
+                        <h4 class="mb-3" *ngIf="totalSubscription.length==0">
+                            <span class="counter-value">0</span>
+                        </h4>
+                    </div>
+                    <div class="col-4" style="text-align: center;">
+                        <img src="assets/images/icons/subscribed.png" alt="subscribed" class="rounded avatar-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-4" *ngIf="topTradeMaterial.length >0">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="d-flex flex-wrap align-items-center mb-4">
+                    <h5 class="card-title me-2">Quality</h5>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-sm">
+                        <apx-chart dir="ltr" class="apex-charts" [series]="qualityCharts.series"
+                            [chart]="qualityCharts.chart" [legend]="qualityCharts.legend"
+                            [colors]="qualityCharts.colors" [labels]="qualityCharts.labels"
+                            [stroke]="qualityCharts.stroke" [plotOptions]="qualityCharts.plotOptions">
+                        </apx-chart>
+                    </div>
+
+                </div>
+                <div class="row align-self-center">
+                    <div class="mt-4 mt-sm-0">
+                        <div *ngIf="topTradeMaterial[0] != undefined">
+                            <h6><i class="mdi mdi-circle align-middle font-size-10 me-2 text-success"></i>
+                                {{topTradeMaterial[0].BuyerQuality}} : {{topTradeMaterial[0].totalQuantityTrade }}
+                                MT
+                            </h6>
+                        </div>
+
+                        <div class="mt-4 pt-2" *ngIf="topTradeMaterial[1] != undefined">
+                            <h6><i class="mdi mdi-circle align-middle font-size-10 me-2 text-primary"></i>
+                                {{topTradeMaterial[1].BuyerQuality}} : {{topTradeMaterial[1].totalQuantityTrade }}
+                                MT</h6>
+                        </div>
+
+                        <div class="mt-4 pt-2" *ngIf="topTradeMaterial[2] != undefined">
+                            <h6><i class="mdi mdi-circle align-middle font-size-10 me-2 text-info"></i>
+                                {{topTradeMaterial[2].BuyerQuality}} : {{topTradeMaterial[2].totalQuantityTrade }}
+                                MT</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4" *ngIf="toptenbuyer.length >0">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="d-flex flex-wrap align-items-center mb-4">
+                    <h5 class="card-title me-2">Top 10 Buyers</h5>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-sm">
+                        <apx-chart dir="ltr" class="apex-charts" [series]="topTenBuyerChart.series"
+                            [chart]="topTenBuyerChart.chart" [legend]="topTenBuyerChart.legend"
+                            [colors]="topTenBuyerChart.colors" [labels]="topTenBuyerChart.labels"
+                            [stroke]="topTenBuyerChart.stroke" [plotOptions]="topTenBuyerChart.plotOptions">
+                        </apx-chart>
+                    </div>
+                </div>
+                <div class="row align-self-center">
+                    <div class="" *ngIf="toptenbuyer[0] != undefined">
+                        <p class="mb-2"><i
+                                class="mdi mdi-circle align-middle font-size-10 me-2 text-success"></i>{{toptenbuyer[0].userRecord.CompanyName}}
+                        </p>
+                        <h6>Commission= <span class=" font-size-14 fw-normal">
+                                <b> ₹{{toptenbuyer[0].CommisionAmount}}</b></span></h6>
+                    </div>
+
+                    <div class="mt-4 pt-2" *ngIf="toptenbuyer[1] != undefined">
+                        <p class="mb-2"><i class="mdi mdi-circle align-middle font-size-10 me-2 text-primary"></i>
+                            {{toptenbuyer[1].userRecord.CompanyName}}
+                        </p>
+                        <h6>Commission= <span class=" font-size-14 fw-normal">
+                                <b>₹{{toptenbuyer[1].CommisionAmount}}</b></span></h6>
+                    </div>
+
+                    <div class="mt-4 pt-2" *ngIf="toptenbuyer[2] != undefined">
+                        <p class="mb-2"><i class="mdi mdi-circle align-middle font-size-10 me-2 text-info"></i>
+                            {{toptenbuyer[2].userRecord.CompanyName}} </p>
+                        <h6>Commission= <span class=" font-size-14 fw-normal">
+                                <b>₹{{toptenbuyer[2].CommisionAmount}}</b></span></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4" *ngIf="topTradeStatus.length >0">
+        <div class="card card-h-100">
+            <div class="card-body">
+                <div class="d-flex flex-wrap align-items-center mb-4">
+                    <h5 class="card-title me-2">Trade Status</h5>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-sm">
+                        <apx-chart dir="ltr" class="apex-charts" [series]="tradeStatusCharts.series"
+                            [chart]="tradeStatusCharts.chart" [legend]="tradeStatusCharts.legend"
+                            [colors]="tradeStatusCharts.colors" [labels]="tradeStatusCharts.labels"
+                            [stroke]="tradeStatusCharts.stroke" [plotOptions]="tradeStatusCharts.plotOptions">
+                        </apx-chart>
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="mt-4 mt-sm-0">
+                        <div *ngIf="topTradeStatus[0] != undefined">
+                            <h6><i class="mdi mdi-circle align-middle font-size-10 me-2 text-success"></i>
+                                {{topTradeStatus[0].TradeStatus}} : {{topTradeStatus[0].totalTrade}} Trades<span
+                                    class="text-muted font-size-14 fw-normal"></span></h6>
+                        </div>
+                        <div class="mt-4 pt-2" *ngIf="topTradeStatus[1] != undefined">
+                            <h6><i class="mdi mdi-circle align-middle font-size-10 me-2 text-primary"></i>
+                                {{topTradeStatus[1].TradeStatus}} : {{topTradeStatus[1].totalTrade}} Trades <span
+                                    class="text-muted font-size-14 fw-normal"></span></h6>
+                        </div>
+                        <div class="mt-4 pt-2" *ngIf="topTradeStatus[2] != undefined">
+                            <h6><i class="mdi mdi-circle align-middle font-size-10 me-2 text-info"></i>
+                                {{topTradeStatus[2].TradeStatus}} : {{topTradeStatus[2].totalTrade}} Trades<span
+                                    class="text-muted font-size-14 fw-normal"></span></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <app-upcoming-deliveries></app-upcoming-deliveries>
+    </div>
+    <div class="col-lg-12">
+        <app-upcoming-payments></app-upcoming-payments>
+    </div>
+</div>

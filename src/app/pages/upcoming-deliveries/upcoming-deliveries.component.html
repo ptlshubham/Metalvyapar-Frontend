@@ -1,0 +1,250 @@
+<div class="card" *ngIf="!viewDetails ">
+    <div class="card-header">
+        <h4 class="card-title">Upcoming Deliveries in next 3 Days</h4>
+        <!-- <p class="card-title-desc">Here is example of datatable.
+        </p> -->
+    </div>
+    <div class="card-body">
+        <div class="row mb-md-2">
+            <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="tickets-table_length"><label
+                        class="d-inline-flex align-items-center">Show
+                        <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                            [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                        </select> entries</label></div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+                <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                        class="d-inline-flex align-items-center">Search:
+                        <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                            aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+            </div>
+            <!-- End search -->
+        </div>
+
+        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100 datatables">
+            <thead>
+                <tr>
+                    <th sortable="srno" (sort)="onSort($event)">Sr No</th>
+                    <th sortable="Date" (sort)="onSort($event)">Trade Date</th>
+                    <th sortable="TradeId" (sort)="onSort($event)">Trade ID</th>
+                    <th sortable="BuyerName" (sort)="onSort($event)">Buyer Name</th>
+                    <th sortable="SellerName" (sort)="onSort($event)">Seller Name</th>
+                    <th sortable="DeliveryDue" (sort)="onSort($event)">Delivery Due Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let table of tables$ | async;let i=index">
+                <tr>
+                    <td>
+                        <ngb-highlight [result]="table.srno | number" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.Date" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.TradeId" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.BuyerName " [term]="service.searchTerm">
+                        </ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.SellerName" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.DeliveryDue " [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td> <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                            (click)="openDetails(table)" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="View & Accept"><i class="fas fa-eye font-size-16 align-middle"></i></button></td>
+
+
+                </tr>
+            </tbody>
+        </table>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    Showing
+                    {{service.startIndex}} to
+                    {{service.endIndex}} of {{service.totalRecords}}
+                    entries
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col-sm-12 col-md-5">
+                <div class="text-md-right float-md-end pagination-rounded">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                        [pageSize]="service.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+    </div>
+</div>
+<div class="card" *ngIf="viewDetails ">
+    <div class="card-header">
+        <div class="d-flex justify-content-between">
+            <h5 class="card-title">Trade Details</h5>
+            <button type="button" class="btn btn-danger waves-effect waves-light" (click)="backToResponseList()"><i
+                    class="bx bx-left-arrow-alt"></i>Back</button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row mb-md-2">
+            <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length" id="tickets-table_length"><label
+                        class="d-inline-flex align-items-center">Show
+                        <select name="tickets-table_length" aria-controls="tickets-table" name="pageSize"
+                            [(ngModel)]="service.pageSize" class="form-control form-control-sm mx-2">
+                            <option [ngValue]="10">10</option>
+                            <option [ngValue]="25">25</option>
+                            <option [ngValue]="50">50</option>
+                            <option [ngValue]="100">100</option>
+                        </select> entries</label></div>
+            </div>
+            <!-- Search -->
+            <div class="col-sm-12 col-md-6">
+                <div id="tickets-table_filter" class="dataTables_filter text-md-end"><label
+                        class="d-inline-flex align-items-center">Search:
+                        <input type="text" name="searchTerm" class="form-control form-control-sm ms-2"
+                            aria-controls="tickets-table" [(ngModel)]="service.searchTerm"></label></div>
+            </div>
+            <!-- End search -->
+        </div>
+
+        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100 datatables"
+            style="display: block !important;overflow: auto  !important; white-space: nowrap !important;">
+            <thead>
+                <tr>
+                    <th sortable="srno" (sort)="onSort($event)">Sr No</th>
+                    <th sortable="TradeId" (sort)="onSort($event)">TradeId</th>
+                    <th sortable="DispatchDate" (sort)="onSort($event)">Dispatch Date</th>
+                    <th sortable="Quantity" (sort)="onSort($event)">Quantity</th>
+                    <th sortable="InvoiceAmount" (sort)="onSort($event)">Invoice Amount (₹)</th>
+                    <th sortable="WeightSlip" (sort)="onSort($event)">Weight Slip</th>
+                    <th sortable="VehicleNumber" (sort)="onSort($event)">Vehicle Number</th>
+                    <th sortable="TransporterContact" (sort)="onSort($event)">Transporter Contact</th>
+                    <th sortable="DeliveryDate" (sort)="onSort($event)">Delivery Date</th>
+                    <th sortable="DeliveryWeightSlip" (sort)="onSort($event)">Delivery Weight Slip</th>
+                    <th sortable="PaymentDueDate" (sort)="onSort($event)">Payment Due Date</th>
+                    <th sortable="UtrNo" (sort)="onSort($event)">UTR No</th>
+                    <th sortable="PaymentScreenshot" (sort)="onSort($event)">Payment Screenshot</th>
+
+                </tr>
+            </thead>
+            <tbody *ngFor="let table of tables$ | async;let i=index">
+                <tr>
+                <tr>
+                    <td>
+                        <ngb-highlight [result]="table.srno | number" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.TradeId" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.DispatchDate " [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.Quantity | number" [term]="service.searchTerm">
+                        </ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.InvoiceAmount | number"
+                            [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td class="text-center">
+                        <img src="https://api.metalvyapar.com{{table.WeightSlip}}" *ngIf="table.WeightSlip != undefined"
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,table.WeightSlip,null)" alt="WeightSlip"
+                            class="rounded avatar-lg">
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.VehicleNumber" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.TransporterContact" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.DeliveryDate" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+
+                    <td class="text-center">
+                        <img src="https://api.metalvyapar.com{{table.DeliveryWeightSlip}}"
+                            *ngIf="table.DeliveryWeightSlip != undefined" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,table.DeliveryWeightSlip,null)"
+                            alt="DeliveryWeightSlip" class="rounded avatar-lg">
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.PaymentDueDate" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td>
+                        <ngb-highlight [result]="table.UtrNo" [term]="service.searchTerm"></ngb-highlight>
+                    </td>
+                    <td class="text-center">
+                        <img src="https://api.metalvyapar.com{{table.PaymentScreenshot}}"
+                            *ngIf="table.PaymentScreenshot != undefined" data-bs-toggle="modal"
+                            data-bs-target=".bs-example-modal-center"
+                            (click)="centerModal(centerDataModal,table.PaymentScreenshot,null)" alt="PaymentScreenshot"
+                            class="rounded avatar-lg">
+
+                    </td>
+
+
+
+                </tr>
+            </tbody>
+        </table>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col-sm-12 col-md-5">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                    Showing
+                    {{service.startIndex}} to
+                    {{service.endIndex}} of {{service.totalRecords}}
+                    entries
+                </div>
+            </div>
+            <!-- Pagination -->
+            <div class="col-sm-12 col-md-5">
+                <div class="text-md-right float-md-end pagination-rounded">
+                    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
+                        [pageSize]="service.pageSize">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <!-- End Pagination -->
+        </div>
+    </div>
+
+</div>
+
+
+<ng-template #centerDataModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title mt-0">Image Viewer</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss('Cross click')" aria-hidden="true"></button>
+    </div>
+    <div class="modal-body">
+        <link rel="stylesheet" type="text/css"
+            href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="image-viewer-container" [class.fullscreen]="fullscreen">
+                        <div class="image-viewer">
+                            <ngx-image-viewer #imageViewer [src]="images" [(index)]="imageIndex"></ngx-image-viewer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

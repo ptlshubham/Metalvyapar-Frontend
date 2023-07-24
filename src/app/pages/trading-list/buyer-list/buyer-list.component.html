@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Buyer Trade List</h5>
+                <!-- <p class="card-title-desc">
+                   
+                </p> -->
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Order ID</th>
+                                <th>IMAGE</th>
+                                <th>SELLER NAME</th>
+                                <th>Quality</th>
+                                <th>QUANTITY (MT)</th>
+                                <th>Rate (₹/MT)<a placement="bottom"
+                                                ngbTooltip="Rates are exclusive of taxes. 18% GST will be applicable on the rates.">*</a></th>
+                                <th>PAYEMENT TERMS</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let s of byuerTrade">
+                                <th scope="row">{{s.id}}</th>
+                                <td>{{s.oid}}</td>
+                                <td>
+                                    <img src="{{s.image}}" alt="" class="rounded avatar-lg">
+                                </td>
+                                <td>{{s.sname}}</td>
+                                <td>{{s.quality}}</td>
+                                <td>{{s.quantity}} (MT)</td>
+                                <td>{{s.rate}} ₹</td>
+                                <td>{{s.terms}} days</td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <!-- <button type="button" class="btn btn-soft-primary waves-effect waves-light"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="View & Accept"
+                                            (click)="editAcceptOrder(s)"><i
+                                                class="bx bx-edit font-size-16 align-middle"></i></button> -->
+                                    </div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+</div>

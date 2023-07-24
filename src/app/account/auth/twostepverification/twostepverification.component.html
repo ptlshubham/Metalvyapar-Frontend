@@ -1,0 +1,55 @@
+<app-header-main></app-header-main>
+
+<div class="auth-page" style="margin-bottom: 60px !important;">
+    <div class="container-fluid p-0">
+        <div class="row g-0">
+            <div class="col-xxl-4 col-lg-4 col-md-2">
+            </div>
+            <div class="col-xxl-4 col-lg-4 col-md-8 mt-md-7 mt-sm-5 topCustom">
+                <div class="card ">
+                    <div class="auth-content my-auto  p-sm-5 p-4">
+                        <div class="text-center">
+
+                            <div class="avatar-lg mx-auto">
+                                <div class="avatar-title rounded-circle bg-light">
+                                    <i class="bx bxs-envelope h2 mb-0 text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="p-2 mt-4">
+
+                                <h4>Verify your email</h4>
+                                <p class="mb-5">Please enter the 6 digit code sent to <span
+                                        class="fw-bold">info@nextgenmetals.com</span></p>
+
+                                <form routerLink="/">
+                                    <div class="row">
+                                        <ng-otp-input [config]="config"></ng-otp-input>
+                                    </div>
+
+                                    <div class="mt-4">
+                                        <a routerLink="/"
+                                            class="btn btn-primary w-100 waves-effect waves-light">Confirm</a>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                        <div class="mt-5 text-center">
+                            <p class="text-muted mb-0">Didn't receive an email ? <a href="#"
+                                    class="text-primary fw-semibold"> Resend </a> </p>
+                        </div>
+                    </div>
+                    <!-- <div class="mt-4 mt-md-5 text-center">
+                                <p class="mb-0">© {{year}}> Minia . Crafted with <i
+                                        class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                            </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- end auth full page content -->
+    </div>
+
+</div>
+<!-- end row -->
